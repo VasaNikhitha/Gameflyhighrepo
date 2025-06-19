@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aviator Game UI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0f1218;
+      color: #fff;
+    }
+    .navbar {
+      background-color: #1b1f2a;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #222;
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .main {
+      display: flex;
+      height: calc(100vh - 50px);
+    }
+  .sidebar {
+  width: 250px;
+  background-color: #191c24; /* Matches sidebar background color */
+  padding: 10px;
+  overflow-y: auto;
+  border-right: 2px solid #2a2f3d; /* Adds a subtle border like in the image */
+}
+.sidebar h3 {
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar li {
+      padding: 10px;
+      border-bottom: 1px solid #2a2f3d;
+      cursor: pointer;
+    }
+    .sidebar li:hover {
+      background-color: #2a2f3d;
+    }
+    .game-area {
+      flex-grow: 1;
+      position: relative;
+      background: radial-gradient(ellipse at center, #1e1e2f 0%, #0f1218 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    canvas {
+      width: 100%;
+      height: 60vh;
+    }
+    .multiplier {
+      font-size: 3rem;
+      margin-top: 20px;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .controls input,
+    .controls button {
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+    }
+    .controls input {
+      width: 100px;
+    }
+    .controls button {
+      background-color: #27ae60;
+      color: #fff;
+      cursor: pointer;
+    }
+  table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #333;
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+}
+
+th {
+  background-color: #222;
+}
+
+tbody tr {
+  border-bottom: 1px solid #333;
+}
+
+tbody tr:hover {
+  background-color: #2a2f3d; /* Darker row on hover */
+}
+  </style>
+</head>
+<body>
+<div class="navbar">
+        <h1>Aviator</h1>
+        <div class="balance">$5000.00</div>
+        <button class="menu-btn">How to play</button>
+    </div>
+    <div style="display: flex;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h4>All Bets</h4>
+            <div class="bet-table">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Bet x</th>
+              <th>cashout</th>
+            </tr>
+          </thead>
+          <tbody id="betTableBody">
+            <!-- Bet history will be displayed here -->
+          </tbody>
+        </table>
+      </div>
+        </div>
+
+    <div class="game-area">
+      <canvas id="aviator-canvas"></canvas>
+      <div class="multiplier" id="multiplier">1.00x</div>
+      <div class="controls">
+        <input type="number" id="betAmount" placeholder="Bet" />
+        <button id="betBtn">BET</button>
+        <button id="cashOutBtn">CASH OUT</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("aviator-canvas");
+    const ctx = canvas.getContext("2d");
+    const betAmountInput = document.getElementById("betAmount");
+    const betBtn = document.getElementById("betBtn");
+    const cashOutBtn = document.getElementById("cashOutBtn");
+    let multiplier = 1.0;
+    let interval;
+    let crashPoint = Math.random() * 5 + 1.5;
+    let betPlaced = false;
+    let currentBetAmount = 0;
+    let betHistory = [];
+
+    const crashSound = new Audio('sounds/box-crash.mp3');
+    const betSound = new Audio('sounds/box-crash.mp3');
+    const cashOutSound = new Audio('sounds/cashout.mp3');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth - 250;
+      canvas.height = window.innerHeight * 0.6;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    function startGame() {
+      if (betPlaced) return; // Prevent starting the game if a bet is already placed
+      currentBetAmount = parseFloat(betAmountInput.value);
+      if (isNaN(currentBetAmount) || currentBetAmount <= 0) {
+        alert("Please enter a valid bet amount!");
+        return;
+      }
+
+      betPlaced = true;
+      betSound.play();
+      multiplier = 1.0;
+      crashPoint = Math.random() * 5 + 1.5;
+      document.getElementById("multiplier").textContent = multiplier.toFixed(2) + 'x';
+      clearInterval(interval);
+      interval = setInterval(() => {
+        multiplier += 0.01 * multiplier;
+        document.getElementById("multiplier").textContent = multiplier.toFixed(2) + 'x';
+        drawPlane(multiplier);
+
+        if (multiplier >= crashPoint) {
+          clearInterval(interval);
+          document.getElementById("multiplier").textContent = "💥 CRASHED at " + multiplier.toFixed(2) + "x";
+          betPlaced = false;
+          crashSound.play();
+        }
+      }, 100);
+    }
+
+    function drawPlane(multiplier) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      const x = (multiplier / crashPoint) * canvas.width;
+      const y = canvas.height - (Math.log(multiplier + 1) * 100);
+      ctx.arc(x, y, 10, 0, 2 * Math.PI);
+      ctx.fillStyle = "red";
+      ctx.fill();
+    }
+
+    function cashOut() {
+      if (!betPlaced) {
+        alert("You haven't placed a bet yet!");
+        return;
+      }
+      betPlaced = false;
+      const payout = currentBetAmount * multiplier;
+      betHistory.push({ user: "Player1", bet: currentBetAmount, multiplier: multiplier.toFixed(2) + "x", payout: payout.toFixed(2) });
+
+      // Update bet history table
+      const betTableBody = document.getElementById("betTableBody");
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>Player</td><td>$${currentBetAmount.toFixed(2)}  <span style="background-color: #FFBF00; padding: 2px;">${multiplier.toFixed(2)}x</span></td><td>$${payout.toFixed(2)}</td>`;
+      betTableBody.prepend(row);
+
+      document.getElementById("multiplier").textContent = "1.00x";
+      cashOutSound.play();
+    }
+
+    betBtn.addEventListener("click", startGame);
+    cashOutBtn.addEventListener("click", cashOut);
+  </script>
+</body>
+</html>

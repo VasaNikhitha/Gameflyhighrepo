@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airplane Betting Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Poppins:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="aviator.css">
+    <link rel="stylesheet" href="stars.css">
+</head>
+
+<body>
+    <div id="loader">
+        <div class="loading-container">
+            <div class="logo"></div>
+            <div class="spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+    <!-- Game Title Page -->
+    <div id="title-screen" style="display: none;">
+        <div class="title-container">
+            <div class="game-logo">✈️ AVIATOR</div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" id="main-content" style="display: none;">
+        <header class="header">
+            <div class="left-section">
+                <img src="../assets/images/img_vector.svg" alt="Menu" class="menu-icon" onclick="openSettingsPopup()">
+                <!-- Profile Settings Modal -->
+                <div id="settingsPopup" class="settings-popup-overlay" onclick="closeSettingsPopup(event)">
+                    <div class="settings-popup-content">
+                        <div class="profile-header1">
+                            <div class="user-info1">
+                                <img src="../assets/images/img_ellipse_72.png" alt="User Avatar" class="savatar">
+                                <div class="name">Navn</div>
+                            </div>
+                            <button class="change-avatar">Change Avatar</button>
+                        </div>
+
+                        <div class="settings-container">
+                            <div class="toggle-group">
+                                <div class="toggle">
+                                    <div class="toggle-label">Sound</div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle">
+                                    <div class="toggle-label">Music</div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="musicToggle">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="toggle">
+                                    <div class="toggle-label">Animation</div>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="menu-items">
+                                <div class="menu-item">Free Bets</div>
+                                <div class="menu-item" id="history-btn">My Bet History</div>
+                                <div class="menu-item">Game Limits</div>
+                                <div class="menu-item" class="open-modal-btn" id="openModal">How to Play</div>
+                                <div class="menu-item highlight">Game Rules</div>
+                                <div class="menu-item">Provably Fair settings</div>
+                                <div class="menu-item">Game Room : Room #2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <span class="titlename">Aviator</span> -->
+                <img src="../assets/images/img_group_22x28.svg" alt="Logo" class="logo">
+            </div>
+            <div class="user-info">
+                <img src="../assets/images/img_ellipse_72.png" alt="User Avatar" class="user-avatar">
+                <span class="username">Navn..</span>
+                <span class="balance" id="wallet-balance">₹0.00</span>
+            </div>
+            <div class="how-to-play">
+                <img src="../assets/images/img_group.svg" alt="How to play icon">
+                <span id="howToPlayLink">How to play</span>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <div class="bets-container">
+                <div class="tabs">
+                    
+                    <div class="tab active" id="topTab">Top</div>
+                </div>
+
+
+
+                   <div>
+                    <!-- Card List -->
+                    <div class="card">
+                        <div class="user-infotop">
+                        
+                            <div>
+                                
+                                <div class="bet-info">
+                                    <div>Bet INR : <strong>28.20</strong></div>
+                                    <div>Cashed out : <span class="multiplier">6,075.17x</span></div>
+                                    <div>Win INR : <strong>188,283.81</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                   
+                </div>
+                
+            </div>
+
+            <div class="game-container">
+                <div class="multiplier-tabs" id="multiplierTabs">
+                    <!-- multiplier-tab elements will be added here -->
+                    <div class="multiplier-tab history-button">
+                        <img src="../assets/images/img_vector_16x16.svg" alt="History icon" />
+                        <span id="historyLink">History</span>
+                    </div>
+                </div>
+
+
+                <div class="game-content">
+                    <div id="sky"></div>
+                    <div class="status-display">
+                        <div id="game-status">Status: Waiting...</div>
+                        <div class="current-multiplier" id="current-multiplier">
+                            <span>0.00x</span>
+                        </div>
+                    </div>
+                    <div class="animation-container" id="planeAnimation">
+                        <div class="flight-group">
+                            <img src="../assets/images/img_vector_1.png" class="trajectory" id="trajectoryImage" />
+                            <img src="../assets/images/img_vector_2.png" class="trajectory layer-2" />
+                            <img src="../assets/images/img_vector_3.svg" class="trajectory layer-3" />
+                            <img src="../assets/images/img_vecteezyplayfulpinkairplanetoyreadyforuse54473725_1.png"
+                                class="airplane" id="airplane" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="betting-controls">
+                        <div class="betting-panel" id="panel-0">
+                            <div class="bet-toggle">
+                                <div class="bet-toggle-button active">Bet</div>
+                                <div class="bet-toggle-button">Auto</div>
+                            </div>
+                            <div class="auto-cashout">
+                                <div class="checkbox">
+                                    <div class="checkbox-inner"></div>
+                                </div>
+                                <span class="auto-cashout-text">Auto Cash out</span>
+                                <span class="multiplier-value">1.10 X</span>
+                            </div>
+                            <div class="divider"></div>
+
+
+                            <!-- Panel 0 Example -->
+                            <div class="bet-panel" id="bet-panel-0">
+                                <div class="bet-amount-control">
+                                    <div class="amount-button" data-index="0">-</div>
+                                    <div class="amount-display" id="amount-display-0">0.00</div>
+                                    <div class="amount-button" data-index="0">+</div>
+                                </div>
+
+                                <div class="amount-presets">
+                                    <div class="preset-button" data-index="0">100.00</div>
+                                    <div class="preset-button" data-index="0">200.00</div>
+                                    <div class="preset-button" data-index="0">500.00</div>
+                                    <div class="preset-button" data-index="0">1000.00</div>
+                                </div>
+
+                                <div class="action-button red" id="bet-button-0">
+                                    <span class="bet-label">Bet</span>
+                                    <span class="bet-status" id="bet-status-0">Place Bet</span>
+                                </div>
+                            </div>
+
+
+
+                            <img src="../assets/images/img_group_22x28.svg" alt="Logo" class="logo-small">
+                        </div>
+
+                        <div class="betting-panel-right" id="panel-1">
+                            <div class="bet-toggle-row">
+                                <div class="bet-toggle">
+                                    <div class="bet-toggle-button active">Bet</div>
+                                    <div class="bet-toggle-button">Auto</div>
+                                </div>
+
+                                <div class="auto-cashout">
+                                    <div class="checkbox">
+                                        <div class="checkbox-inner"></div>
+                                    </div>
+                                    <span class="auto-cashout-text">Auto Cash out</span>
+                                    <span class="multiplier-value">1.10 X</span>
+                                </div>
+
+                            </div>
+                            <div class="divider"></div>
+
+                            <div class="bet-panel" id="bet-panel-1">
+                                <div class="bet-amount-control">
+                                    <div class="amount-button" data-index="0">-</div>
+                                    <div class="amount-display" id="amount-display-0">0.00</div>
+                                    <div class="amount-button" data-index="0">+</div>
+                                </div>
+
+                                <div class="amount-presets">
+                                    <div class="preset-button" data-index="0">100.00</div>
+                                    <div class="preset-button" data-index="0">200.00</div>
+                                    <div class="preset-button" data-index="0">500.00</div>
+                                    <div class="preset-button" data-index="0">1000.00</div>
+                                </div>
+
+                                <div class="action-button red" id="bet-button-1">
+                                    <span class="bet-label">Bet</span>
+                                    <span class="bet-status" id="bet-status-1">Place Bet</span>
+                                </div>
+                            </div>
+
+                            <img src="../assets/images/img_group_22x28.svg" alt="Logo" class="logo-small">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Free Bets Popup -->
+            <div class="freebets-popup-overlay" id="freeBetsOverlay" onclick="closeFreeBetsPopup(event)">
+                <div class="freebets-popup" id="freeBetsPopup">
+                    <div class="popup-header">
+                        <div class="title">
+                            <img src="../assets/images/img_group_22x28.svg" alt="icon" class="popup-icon">
+                            <span>Free bets Management</span>
+                        </div>
+                        <button class="close-btn" onclick="closeFreeBetsPopup()">✖</button>
+                    </div>
+
+                    <div class="popup-body">
+                        <label class="bet-option selected">
+                            <input type="radio" name="betType" checked />
+                            <span>Play with Cash</span>
+                        </label>
+
+                        <div class="active-section">
+                            <span class="active-title">Active Free bets</span>
+                            <button class="archive-btn">
+                                <img src="../assets/images/img_vector_16x16.svg" alt="Archive Icon"
+                                    class="archive-icon" />
+                                Archive
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bet history  popup -->
+            <div id="bet-history-overlay" class="bet-history-overlay">
+                <div class="bet-history-popup">
+                    <div class="popup-header">
+                        <h2>My Bet History</h2>
+                        <button id="close-history" class="close-btn">×</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Bet INR X</th>
+                                <th>Cash out INR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>16:21 03-04-25</td>
+                                <td>100.01 <span class="multiplier">6.94x</span></td>
+                                <td>
+                                    <div class="cashout-cellh">
+                                        <span>1,781.79</span>
+                                        <img src="../assets/images/shield-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                        <img src="../assets/images/message-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>16:21 03-04-25</td>
+                                <td>100.01 <span class="multiplier">6.94x</span></td>
+                                <td>
+                                    <div class="cashout-cellh">
+                                        <span>1,781.79</span>
+                                        <img src="../assets/images/shield-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                        <img src="../assets/images/message-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>16:21 03-04-25</td>
+                                <td>100.01 <span class="multiplier">6.94x</span></td>
+                                <td>
+                                    <div class="cashout-cellh">
+                                        <span>1,781.79</span>
+                                        <img src="../assets/images/shield-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                        <img src="../assets/images/message-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>16:21 03-04-25</td>
+                                <td>100.01 <span class="multiplier">6.94x</span></td>
+                                <td>
+                                    <div class="cashout-cellh">
+                                        <span>1,781.79</span>
+                                        <img src="../assets/images/shield-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                        <img src="../assets/images/message-icon.svg" alt="Success"
+                                            class="status-iconh" />
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal" id="howToPlayModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>How to Play</h2>
+                        <div class="buttons">
+                            <button class="button" id="gameRulesModalbtn">Game Rules</button>
+                            <button class="close-btn" id="closeModal">&times;</button>
+                        </div>
+                    </div>
+
+                    <div class="video-box">
+                        <video controls>
+                            <source src="your-video.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">01</div>
+                            <p>Make a bet, or even two at same time and wait for the round to start</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">02</div>
+                            <p>Look after the lucky plane. Your win is bet multiplied by a coefficient of lucky plane
+                            </p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">03</div>
+                            <p>Cash out before plane flies away and money is yours!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="gameRulesModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Game Rules</h2>
+                        <button class="close-btn">×</button>
+                    </div>
+
+                    <p class="para">
+                        Aviator is a new generation of iGaming entertainment...
+                    </p>
+
+                    <h3>How to Play</h3>
+
+                    <div class="video-box">
+                        <video controls>
+                            <source src="your-video.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <p class="para">Aviator is as easy to play as 1-2-3:</p>
+
+                    <div class="stepsgame">
+                        <span class="stepgame">
+                            <div class="step-numbergame">01</div>
+                            <div class="step-imagegame">
+                                <img src="step1-image.jpg" alt="Step 1" />
+                            </div>
+                            <div class="step-text">
+
+                                <p class="parastep">Make a bet, or even two at same time and wait for the round to start
+                                </p>
+                            </div>
+
+                        </span>
+                        <span class="stepgame">
+                            <div class="step-numbergame">02</div>
+                            <div class="step-imagegame">
+                                <img src="step2-image.jpg" alt="Step 2" />
+                            </div>
+                            <div class="step-textgame">
+
+                                <p class="parastep">Look after the lucky plane. Your win is bet multiplied by a
+                                    coefficient
+                                    of lucky plane
+                                </p>
+                            </div>
+                        </span>
+                        <span class="stepgame">
+                            <div class="step-numbergame">03</div>
+                            <div class="step-imagegame">
+                                <img src="step3-image.jpg" alt="Step 3" />
+                            </div>
+                            <div class="step-textgame">
+
+                                <p class="parastep">Cash out before plane flies away and money is yours!</p>
+                            </div>
+                    </div>
+
+                    </span>
+                    <p class="para">But remember, if you do not cash out before...</p>
+                </div>
+            </div>
+
+        </div>
+        <audio id="bgMusic" src="../sounds/bgmusic.mp3" loop></audio>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+
+    <script src="aviator.js"></script>
+    <script src="socket.js"></script>
+
+</body>
+
+</html>

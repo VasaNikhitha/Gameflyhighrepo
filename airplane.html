@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airplane Betting Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Poppins:wght@500&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #0a0f2c, #1a1c3a);
+            color: white;
+            padding: 20px;
+        }
+
+        .btn {
+            background-color: #ff2c6d;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #1e223d;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .details {
+            margin-top: 10px;
+        }
+
+        .details span {
+            display: block;
+            margin: 3px 0;
+        }
+
+        .date-round {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+
+        .cashed-out {
+            color: #ff2c6d;
+            font-weight: bold;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        body {
+            background-color: #030609;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(90deg, #161820 0%, #030839 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .menu-icon {
+            width: 19px;
+            height: 15px;
+        }
+
+        .logo {
+            width: 28px;
+            height: 55px;
+            margin-left: -16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 25px;
+            height: 25px;
+            border-radius: 12px;
+        }
+
+        .username {
+            font-size: 10px;
+            font-weight: 400;
+            color: #ffffff;
+        }
+
+        .balance {
+            font-size: 12px;
+            font-weight: 600;
+            color: #ff2171;
+        }
+
+        .how-to-play {
+            display: flex;
+            align-items: center;
+            background-color: #030609;
+            border-radius: 12px;
+            padding: 6px 15px;
+            gap: 5px;
+        }
+
+        .how-to-play img {
+            width: 19px;
+            height: 14px;
+        }
+
+        .how-to-play span {
+            font-size: 10px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .main-container {
+            display: flex;
+            margin-top: 60px;
+            height: calc(100vh - 60px);
+            flex-direction: row;
+        }
+
+        .bets-container {
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(139deg, #161820 0%, #030839 100%);
+            border-radius: 8px;
+            padding: 12px 9px;
+            overflow-y: auto;
+            margin-top: -13px;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #030609;
+            border-radius: 17px;
+            margin-bottom: 10px;
+            height: 35px;
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f5f5f5;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .tab.active {
+            background: linear-gradient(90deg, #fe082c 0%, #ff257b 100%);
+            border-radius: 15px;
+            color: #ffffff;
+        }
+
+        .table-header {
+            display: flex;
+            background-color: #0306097f;
+            border-radius: 17px;
+            height: 35px;
+            margin-bottom: 10px;
+            padding: 0 16px;
+        }
+
+        .header-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8a8b8b;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .user-cell {
+            flex: 1;
+            text-align: left;
+            justify-content: flex-start;
+        }
+
+        .bet-cell {
+            flex: 1;
+            text-align: center;
+        }
+
+        .cashout-cell {
+            flex: 1;
+            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .bet-row {
+            display: flex;
+            height: 35px;
+            border-radius: 17px;
+            margin-bottom: 6px;
+            padding: 0 5px;
+            align-items: center;
+        }
+
+        .bet-row.highlighted {
+            background: linear-gradient(89deg, #058989 0%, #030609 100%);
+            border: 1px solid #058989;
+        }
+
+        .bet-row.gradient {
+            background: linear-gradient(89deg, #030609 0%, #49035e 100%);
+        }
+
+        .bet-row.normal {
+            background-color: #0306097f;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .profile-pic-container {
+            width: 25px;
+            height: 25px;
+            background-color: #1f2129;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-size: 10px;
+            font-weight: 400;
+            color: #ffffff;
+        }
+
+        .bet-amount {
+            flex: 1;
+            font-size: 10px;
+            font-weight: 400;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .cashout-amount {
+            flex: 1;
+            font-size: 10px;
+            font-weight: 400;
+            color: #ffffff;
+            text-align: right;
+        }
+
+        .multiplier-badge {
+            background-color: #fae05c;
+            border-radius: 6px;
+            padding: 2px 1px;
+            font-size: 7px;
+            font-weight: 500;
+            color: #030609;
+            margin-right: -44px;
+            flex: 0.5;
+            /* Smaller flex value for less space */
+            text-align: center;
+        }
+
+        .game-container {
+            flex: 1;
+            position: relative;
+            background-image: url('../assets/images/img_142125375441113_1.png');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            margin-top: -8px;
+        }
+
+        .multiplier-tabs {
+            position: absolute;
+            top: 12px;
+            left: 13px;
+            right: 13px;
+            display: flex;
+            gap: 4px;
+            height: 35px;
+            z-index: 10;
+        }
+
+        .multiplier-tab {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #131626;
+            border-radius: 12px;
+            width: 120px;
+            height: 25px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .multiplier-tab.green {
+            color: #1edb80;
+        }
+
+        .multiplier-tab.red {
+            color: #fe1246;
+        }
+
+        .multiplier-tab.light-green {
+            color: #65ffbc;
+        }
+
+        .multiplier-tab.medium-green {
+            color: #29e66e;
+        }
+
+        .history-button {
+            display: flex;
+            align-items: center;
+            background-color: #1f2129;
+            border-radius: 12px;
+            padding: 7px 25px 7px 4px;
+            gap: 5px;
+        }
+
+        .history-button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+
+        }
+
+        .history-button span {
+            font-size: 10px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .game-content {
+            position: relative;
+            height: 100%;
+        }
+
+        .current-multiplier {
+            position: absolute;
+            top: 23%;
+            left: 38%;
+            transform: translate(-50%, -50%);
+            background-color: #030609;
+            border: 1px solid;
+            border-image-source: linear-gradient(90deg, #cc0514 0%, #ff83f8 100%);
+            border-image-slice: 1;
+            border-radius: 39px;
+            width: 202px;
+            height: 79px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .current-multiplier span {
+            font-size: 40px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .airplane {
+            position: absolute;
+            top: 26%;
+            left: 39%;
+            width: 211px;
+            height: 267px;
+            z-index: 5;
+        }
+
+        .trajectory {
+            position: absolute;
+            top: 46%;
+            left: -3%;
+            width: 615px;
+            height: 177px;
+            z-index: 4;
+        }
+
+        .betting-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 392px;
+            background: linear-gradient(180deg, #03060900 0%, #000000 100%);
+            border-radius: 0px 0px 8px 8px;
+            display: flex;
+            padding: 187px 18px 0;
+            gap: 20px;
+        }
+
+        .betting-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #131524 0%, #030939 100%);
+            border-radius: 8px;
+            padding: 11px 21px;
+            position: relative;
+        }
+
+        .betting-panel-right {
+            flex: 1;
+            background: linear-gradient(135deg, #121423 0%, #040a37 100%);
+            border-radius: 8px;
+            padding: 11px 21px;
+            position: relative;
+        }
+
+        .bet-toggle {
+            display: flex;
+            background-color: #030609;
+            border-radius: 12px;
+            height: 25px;
+            width: 136px;
+            gap: 5px;
+            flex: 0 0 auto;
+        }
+
+        .bet-toggle-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 25px;
+            width: 74px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .bet-toggle-button.active {
+            background: linear-gradient(104deg, #fe0b35 0%, #ff2375 100%);
+            border-radius: 12px;
+        }
+
+        .bet-amount-control {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            background-color: #030609;
+            border-radius: 20px;
+            height: 40px;
+            width: 221px;
+            padding: 0 8px;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .amount-button {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(104deg, #fe0b35 0%, #ff2375 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .amount-display {
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .amount-presets {
+            display: flex;
+            flex-wrap: wrap;
+            /* allow wrapping to next line */
+            gap: 10px;
+            /* space between buttons */
+            max-width: 220px;
+        }
+
+        .preset-button {
+            flex: 1 1 100px;
+            /* grow/shrink, base width */
+            min-width: 104px;
+            height: 23px;
+            background-color: #030609;
+            border: 1px solid #373c4e;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 500;
+            color: #9b9b9b;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+        }
+
+        .bet-toggle-row {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 0 10px;
+            /* optional, adds some spacing */
+        }
+
+
+        .action-button {
+            position: absolute;
+            bottom: 34px;
+            right: 21px;
+            width: 250px;
+            height: 113px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .action-button.red {
+            background: linear-gradient(302deg, #fe0b35 0%, #ff2477 100%);
+            box-shadow: 0px 0px 10px #ffffff99;
+        }
+
+        .action-button.green {
+            background: linear-gradient(302deg, #40ff48 0%, #00bcb0 100%);
+            box-shadow: 0px 0px 10px #ffffff99;
+        }
+
+        .action-button span {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .action-button.red span {
+            color: #ffffff;
+        }
+
+        .action-button.green span {
+            color: #000000;
+        }
+
+        .auto-cashout {
+            position: absolute;
+            left: 62%;
+            transform: translateX(-20%);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+        }
+
+        .checkbox {
+            width: 15px;
+            height: 15px;
+            border: 1px solid #ff1c61;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .checkbox-inner {
+            width: 9px;
+            height: 9px;
+            background-color: #fe1b60;
+            border-radius: 4px;
+        }
+
+        .auto-cashout-text {
+            font-size: 12px;
+            font-weight: 400;
+            color: #ffffff;
+        }
+
+        .multiplier-value {
+            font-size: 12px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-left: 20px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #030609;
+            margin: 5px 0;
+        }
+
+        .logo-small {
+            position: absolute;
+            bottom: 172px;
+            right: 13px;
+            width: 28px;
+            height: 22px;
+        }
+
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .bets-container {
+                width: 100%;
+                height: auto;
+                max-height: 386px;
+                border-radius: 0;
+                order: 2;
+                margin-top:7px;
+            }
+
+            .multiplier-tabs {
+                top: 8px;
+                left: 0;
+                right: 0;
+                padding: 0 8px;
+                gap: 4px;
+                height: 30px;
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: none;
+                /* Firefox */
+            }
+
+            .multiplier-tabs::-webkit-scrollbar {
+                display: none;
+                /* Chrome, Safari */
+            }
+
+            .multiplier-tabs>* {
+                flex: 0 0 auto;
+                /* Prevent items from shrinking or wrapping */
+                font-size: 13px;
+                padding: 4px 10px;
+            }
+
+            .game-container {
+                flex: none;
+                order: 1;
+                height: 50vh;
+                /* Adjusted for smaller screens */
+                margin-top: 0;
+                /* Optional: reset margin if needed */
+                background-size: contain;
+                /* Optional: better image scaling for mobile */
+            }
+            .game-content {
+        height: auto; /* Allow content to adjust to its size */
+        min-height: 100vh; /* Optional: ensure it fills the screen if needed */
+        padding-bottom: 16px; /* Optional: add spacing for mobile layout */
+    }
+
+           .betting-controls {
+        height: auto;
+        padding: 20px 12px 12px;
+        flex-direction: column;
+        gap: 12px;
+        border-radius: 0 0 8px 8px;
+        background: linear-gradient(180deg, #03060900 0%, #000000 100%);
+        position: relative; /* switch from absolute for better stacking */
+    }
+
+    .betting-panel{
+         flex: 1;
+        padding: 10px 14px;
+        border-radius: 6px;
+        order: 1;
+    }
+    .betting-panel-right {
+        flex: 1;
+        padding: 10px 14px;
+        border-radius: 6px;
+        order: 2;
+    }
+
+    .bet-toggle {
+        height: 24px;
+        width: 120px;
+        gap: 4px;
+    }
+
+    .bet-toggle-button {
+        height: 24px;
+        width: 60px;
+        font-size: 11px;
+    }
+
+    .bet-amount-control {
+        width: 100%;
+        height: 36px;
+        margin-top: 12px;
+        margin-bottom: 10px;
+        padding: 0 8px;
+    }
+
+    .amount-button {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+
+    .amount-display {
+        font-size: 14px;
+    }
+
+    .amount-presets {
+        max-width: 100%;
+        gap: 8px;
+    }
+
+    .preset-button {
+        flex: 1 1 45%;
+        min-width: auto;
+        font-size: 10px;
+        height: 22px;
+    }
+
+    .bet-toggle-row {
+        padding: 0 5px;
+    }
+
+    .action-button {
+        position: relative;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100px;
+        margin-top: 10px;
+    }
+
+    .action-button span {
+        font-size: 18px;
+    }
+
+    .auto-cashout {
+        position: relative;
+        left: 0;
+        transform: none;
+        margin-top: 8px;
+    }
+
+    .checkbox {
+        width: 14px;
+        height: 14px;
+    }
+
+    .checkbox-inner {
+        width: 8px;
+        height: 8px;
+    }
+
+    .auto-cashout-text,
+    .multiplier-value {
+        font-size: 11px;
+    }
+
+    .logo-small {
+        position: absolute;
+        bottom: 120px;
+        right: 12px;
+        width: 24px;
+        height: 18px;
+    }
+
+            .user-info {
+                justify-content: center;
+                margin-top: 5px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .top-section {
+            background: #0d0c1d;
+            color: white;
+            padding: 1rem;
+        }
+
+        .time-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .time-filter {
+            background: #1f1e2e;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 28px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .time-filter.active {
+            background: #ffd21f;
+        }
+
+        .top-button {
+            background: #ff1f66;
+        }
+
+        .card {
+            background: #1a1a2f;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .bet-info {
+            font-size: 0.9rem;
+        }
+
+        .multiplier {
+            color: #ff1f66;
+            font-weight: bold;
+        }
+
+        .footer-header {
+            display: flex;
+            background-color: #0306097f;
+            border-radius: 17px;
+            height: 35px;
+            margin-bottom: 10px;
+            padding: 0 16px;
+            margin-top: 16px;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0px;
+            font-size: 0.85rem;
+            color: #ccc;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .status-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            width: 32px;
+            margin: 20px;
+        }
+
+        .settings-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            /* toggled by JS */
+            display: none;
+            align-items: flex-start;
+            /* align popup to top */
+            justify-content: flex-start;
+            /* align popup to left */
+            padding-left: 10px;
+            /* space from left edge */
+            padding-top: 81px;
+            /* space from top edge */
+            z-index: 1000;
+        }
+
+        .settings-popup-content {
+            width: 90%;
+            max-width: 400px;
+            background: linear-gradient(to bottom, #0f0f2f, #001f3f);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ff2e7e;
+            padding: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .name {
+            font-weight: bold;
+        }
+
+        .change-avatar {
+            border: 1px solid white;
+            background: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .settings-container {
+            padding: 16px;
+        }
+
+        .toggle {
+            display: flex;
+            justify-content: space-between;
+            margin: 14px 0;
+        }
+
+        .switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #555;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        input:checked+.slider {
+            background: linear-gradient(to right, #00ff99, #007d54);
+        }
+
+        input:checked+.slider::before {
+            transform: translateX(24px);
+        }
+
+        .menu-items {
+            margin-top: 20px;
+            border-top: 1px solid #ffffff22;
+            padding-top: 16px;
+        }
+
+        .menu-item {
+            margin: 28px 0;
+            cursor: pointer;
+        }
+
+        .highlight {
+            background: linear-gradient(to right, #00ff99, #004733);
+            padding: 8px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Overlay style */
+        .freebets-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+        }
+
+        /* Show class to toggle */
+        .freebets-popup-overlay.show {
+            display: flex;
+        }
+
+        /* Main popup box */
+        .freebets-popup {
+            background: linear-gradient(180deg, #0c0f2c 0%, #0b1222 100%);
+            border-radius: 16px;
+            width: 472px;
+            padding: 6px;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        /* Header section */
+        .popup-header {
+            background-color: #f83272;
+            color: white;
+            padding: 16px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .popup-header .title {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .popup-icon {
+            width: 31px;
+            height: auto;
+            margin-right: 8px;
+            filter: brightness(0) invert(1);
+            /* optional if using gap */
+        }
+
+        .close-btn {
+            background-color: black;
+            border: none;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 23px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Popup body */
+        .popup-body {
+            padding: 16px;
+            min-height: 250px;
+        }
+
+        /* Radio button option */
+        .bet-option {
+            display: flex;
+            align-items: center;
+            border: 2px solid #f83272;
+            border-radius: 24px;
+            padding: 10px 16px;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        .bet-option input[type="radio"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f83272;
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .bet-option input[type="radio"]:checked::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            background: #f83272;
+            border-radius: 50%;
+        }
+
+        .bet-option span {
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Section for Active Free Bets */
+        .active-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .active-title {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Archive button */
+        .archive-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: gray;
+            border: 2px solid gray;
+            /* white border */
+            border-radius: 25px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: not-allowed;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            /* space between icon and text */
+        }
+
+        .archive-icon {
+            width: 16px;
+            height: 16px;
+            filter: brightness(0) invert(0.5);
+            /* grey */
+            transition: filter 0.3s ease;
+        }
+
+        .archive-btn.active .archive-icon {
+            /* bright red approximation */
+            filter: invert(26%) sepia(98%) saturate(7486%) hue-rotate(349deg) brightness(92%) contrast(103%);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="left-section">
+            <img src="../assets/images/img_vector.svg" alt="Menu" class="menu-icon" onclick="openSettingsPopup()">
+            <!-- Profile Settings Modal -->
+            <div id="settingsPopup" class="settings-popup-overlay" onclick="closeSettingsPopup(event)">
+                <div class="settings-popup-content">
+                    <div class="profile-header">
+                        <div class="user-info">
+                            <img src="../assets/images/img_ellipse_72.png" alt="User Avatar">
+                            <div class="name">Naenn</div>
+                        </div>
+                        <button class="change-avatar">Change Avatar</button>
+                    </div>
+
+                    <div class="settings-container">
+                        <div class="toggle-group">
+                            <div class="toggle">
+                                <div class="toggle-label">Sound</div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="toggle">
+                                <div class="toggle-label">Music</div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="toggle">
+                                <div class="toggle-label">Animation</div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="menu-items">
+                            <div class="menu-item">Free Bets</div>
+                            <div class="menu-item">My Bet History</div>
+                            <div class="menu-item">Game Limits</div>
+                            <div class="menu-item">How to Play</div>
+                            <div class="menu-item highlight">Game Rules</div>
+                            <div class="menu-item">Provably Fair settings</div>
+                            <div class="menu-item">Game Room : Room #2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img src="../assets/images/img_group_22x28.svg" alt="Logo" class="logo">
+        </div>
+        <div class="user-info">
+            <img src="../assets/images/img_ellipse_72.png" alt="User Avatar" class="user-avatar">
+            <span class="username">Navn..</span>
+            <span class="balance">$5000.00</span>
+        </div>
+        <div class="how-to-play">
+            <img src="../assets/images/img_group.svg" alt="How to play icon">
+            <span>How to play</span>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="bets-container">
+            <div class="tabs">
+                <div class="tab active" id="allBetsTab">All Bets</div>
+                <div class="tab">My Bets</div>
+                <div class="tab" id="topTab">Top</div>
+            </div>
+
+
+            <div id="topSection" class="hidden">
+
+                <div class="table-header">
+                    <div class="header-cell user-cell">Huge Wins</div>
+                    <div class="header-cell bet-cell">Biggest Wins</div>
+                    <div class="header-cell cashout-cell">Multipliers</div>
+                </div>
+
+
+                <div class="time-filters">
+                    <button class="time-filter">Day</button>
+                    <button class="time-filter active">Month</button>
+                    <button class="time-filter">Year</button>
+                </div>
+
+                <!-- Card List -->
+                <div class="card">
+                    <div class="user-info">
+                        <img src="../assets/images/img_ellipse_36.png" alt="User" class="user-img" />
+                        <div>
+                            <div class="username">Josi</div>
+                            <div class="bet-info">
+                                <div>Bet INR : <strong>28.20</strong></div>
+                                <div>Cashed out : <span class="multiplier">6,075.17x</span></div>
+                                <div>Win INR : <strong>188,283.81</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-header">
+                        <div class="footer-info">
+                            <span>03 Apr</span>
+                            <span>Round : <strong>#20045.97x</strong></span>
+                            <img src="../assets/images/shield-icon.svg" alt="Success" class="status-icon" />
+                            <img src="../assets/images/message-icon.svg" alt="Success" class="status-icon" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="user-info">
+                        <img src="../assets/images/img_ellipse_72.png" alt="User" class="user-img" />
+                        <div>
+                            <div class="username">Navn..</div>
+                            <div class="bet-info">
+                                <div>Bet INR : <strong>28.20</strong></div>
+                                <div>Cashed out : <span class="multiplier">6,075.17x</span></div>
+                                <div>Win INR : <strong>188,283.81</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-header">
+                        <div class="footer-info">
+                            <span>03 Apr</span>
+                            <span>Round : <strong>#20045.97x</strong></span>
+                            <img src="../assets/images/shield-icon.svg" alt="Success" class="status-icon" />
+                            <img src="../assets/images/message-icon.svg" alt="Success" class="status-icon" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="user-info">
+                        <img src="../assets/images/img_ellipse_37.png" alt="User" class="user-img" />
+                        <div>
+                            <div class="username">Manas</div>
+                            <div class="bet-info">
+                                <div>Bet INR : <strong>28.20</strong></div>
+                                <div>Cashed out : <span class="multiplier">6,075.17x</span></div>
+                                <div>Win INR : <strong>188,283.81</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-header">
+                        <div class="footer-info">
+                            <span>03 Apr</span>
+                            <span>Round : <strong>#20045.97x</strong></span>
+                            <img src="../assets/images/shield-icon.svg" alt="Success" class="status-icon" />
+                            <img src="../assets/images/message-icon.svg" alt="Success" class="status-icon" />
+                        </div>
+                    </div>
+                </div>
+                <!-- add more .card elements as needed -->
+            </div>
+            <div id="allBetsSection" class="allbets">
+                <div class="table-header">
+                    <div class="header-cell user-cell">User</div>
+                    <div class="header-cell bet-cell">Bet x</div>
+                    <div class="header-cell cashout-cell">Cashout</div>
+                </div>
+                <div class="bet-row normal">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Navn..</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="multiplier-badge">6.94x</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row highlighted">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Josi</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row normal">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_37.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Manas</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row gradient">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Navn....</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="multiplier-badge">6.94x</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row gradient">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Josi</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row gradient">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_37.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Manas</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row gradient">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Navn....</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="multiplier-badge">6.94x</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row normal">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Josi</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row normal">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_37.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Manas</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row gradient">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Navn....</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="multiplier-badge">6.94x</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row normal">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Josi</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row normal">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_37.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Manas</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row gradient">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Navn....</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="multiplier-badge">6.94x</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+
+                <div class="bet-row gradient">
+                    <div class="user-profile">
+                        <div class="profile-pic-container">
+                            <img src="../assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
+                        </div>
+                        <span class="user-name">Josi</span>
+                    </div>
+                    <div class="bet-amount">8000</div>
+                    <div class="cashout-amount">12000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="multiplier-tabs">
+                <div class="multiplier-tab green">6.94x</div>
+                <div class="multiplier-tab green">2.14x</div>
+                <div class="multiplier-tab green">2.94x</div>
+                <div class="multiplier-tab green">3.14x</div>
+                <div class="multiplier-tab green">6.94x</div>
+                <div class="multiplier-tab red">6.94x</div>
+                <div class="multiplier-tab red">6.94x</div>
+                <div class="multiplier-tab red">6.94x</div>
+                <div class="multiplier-tab light-green">6.94x</div>
+                <div class="multiplier-tab medium-green">6.94x</div>
+                <div class="multiplier-tab medium-green">6.94x</div>
+                <div class="multiplier-tab history-button">
+                    <img src="../assets/images/img_vector_16x16.svg" alt="History icon">
+                    <span>History</span>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <!-- <div class="current-multiplier">
+                    <span>2.64x</span>
+                </div> -->
+
+                <!-- <img src="../assets/images/img_vecteezyplayfulpinkairplanetoyreadyforuse54473725_1.png" alt="Airplane"
+                    class="airplane">
+                <img src="../assets/images/img_vector_1.png" alt="Trajectory" class="trajectory">
+                <img src="../assets/images/img_vector_2.png" alt="Trajectory" class="trajectory" style="opacity: 0.7;">
+                <img src="../assets/images/img_vector_3.svg" alt="Trajectory" class="trajectory" style="opacity: 0.5;"> -->
+
+                <div class="betting-controls">
+                    <div class="betting-panel">
+                        <div class="bet-toggle">
+                            <div class="bet-toggle-button active">Bet</div>
+                            <div class="bet-toggle-button">Auto</div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- <div class="bet-amount-control">
+                            <div class="amount-button">-</div>
+                            <div class="amount-display">10.00</div>
+                            <div class="amount-button">+</div>
+                        </div>
+
+                        <div class="amount-presets">
+                            <div class="preset-button">100.00</div>
+                            <div class="preset-button">200.00</div>
+                            <div class="preset-button">500.00</div>
+                            <div class="preset-button">1000.00</div>
+                        </div>
+
+                        <div class="action-button red">
+                            <span>Bet</span>
+                            <span>Cancel</span>
+                        </div> -->
+
+                        <img src="../assets/images/img_group_22x28.svg" alt="Logo" class="logo-small">
+                    </div>
+
+                    <div class="betting-panel-right">
+                        <div class="bet-toggle-row">
+                            <div class="bet-toggle">
+                                <div class="bet-toggle-button">Bet</div>
+                                <div class="bet-toggle-button active">Auto</div>
+                            </div>
+
+                            <div class="auto-cashout">
+                                <div class="checkbox">
+                                    <div class="checkbox-inner"></div>
+                                </div>
+                                <span class="auto-cashout-text">Auto Cash out</span>
+                                <span class="multiplier-value">1.10 X</span>
+                            </div>
+
+                        </div>
+                        <div class="divider"></div>
+
+                        <!-- <div class="bet-amount-control">
+                            <div class="amount-button">-</div>
+                            <div class="amount-display">100.00</div>
+                            <div class="amount-button">+</div>
+                        </div>
+
+                        <div class="amount-presets">
+                            <div class="preset-button">100.00</div>
+                            <div class="preset-button">200.00</div>
+                            <div class="preset-button">500.00</div>
+                            <div class="preset-button">1000.00</div>
+                        </div>
+
+                        <div class="action-button green">
+                            <span>Bet</span>
+                            <span>$10.00</span>
+                        </div> -->
+
+                        <img src="../assets/images/img_group_22x28.svg" alt="Logo" class="logo-small">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Free Bets Popup -->
+        <div class="freebets-popup-overlay" id="freeBetsOverlay" onclick="closeFreeBetsPopup(event)">
+            <div class="freebets-popup" id="freeBetsPopup">
+                <div class="popup-header">
+                    <div class="title">
+                        <img src="../assets/images/img_group_22x28.svg" alt="icon" class="popup-icon">
+                        <span>Free bets Management</span>
+                    </div>
+                    <button class="close-btn" onclick="closeFreeBetsPopup()">✖</button>
+                </div>
+
+                <div class="popup-body">
+                    <label class="bet-option selected">
+                        <input type="radio" name="betType" checked />
+                        <span>Play with Cash</span>
+                    </label>
+
+                    <div class="active-section">
+                        <span class="active-title">Active Free bets</span>
+                        <button class="archive-btn">
+                            <img src="../assets/images/img_vector_16x16.svg" alt="Archive Icon" class="archive-icon" />
+                            Archive
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Bet toggle functionality
+        const betToggleButtons = document.querySelectorAll('.bet-toggle-button');
+        betToggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const parent = button.parentElement;
+                parent.querySelectorAll('.bet-toggle-button').forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+
+        // Amount increment/decrement functionality
+        const decrementButtons = document.querySelectorAll('.amount-button:first-child');
+        const incrementButtons = document.querySelectorAll('.amount-button:last-child');
+        const amountDisplays = document.querySelectorAll('.amount-display');
+
+        decrementButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                let currentAmount = parseFloat(amountDisplays[index].textContent);
+                if (currentAmount > 1) {
+                    currentAmount -= 1;
+                    amountDisplays[index].textContent = currentAmount.toFixed(2);
+                }
+            });
+        });
+
+        incrementButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                let currentAmount = parseFloat(amountDisplays[index].textContent);
+                currentAmount += 1;
+                amountDisplays[index].textContent = currentAmount.toFixed(2);
+            });
+        });
+
+        // Preset amount buttons functionality
+        const presetButtons = document.querySelectorAll('.preset-button');
+        presetButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const panel = button.closest('.betting-panel, .betting-panel-right');
+                const amountDisplay = panel.querySelector('.amount-display');
+                amountDisplay.textContent = button.textContent;
+            });
+        });
+
+        // Auto cashout checkbox functionality
+        const checkbox = document.querySelector('.checkbox');
+        checkbox.addEventListener('click', () => {
+            checkbox.classList.toggle('checked');
+            const inner = checkbox.querySelector('.checkbox-inner');
+            if (checkbox.classList.contains('checked')) {
+                inner.style.display = 'block';
+            } else {
+                inner.style.display = 'none';
+            }
+        });
+
+        // Action button functionality
+        const actionButtons = document.querySelectorAll('.action-button');
+        actionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Bet placed!');
+            });
+        });
+
+        // Simulate airplane movement
+        //  let position = 30;
+        // let direction = 1;
+        // const airplane = document.querySelector('.airplane');
+
+        // function moveAirplane() {
+        //     position += 0.2 * direction;
+
+        //     if (position > 60) {
+        //         direction = -1;
+        //     } else if (position < 20) {
+        //         direction = 1;
+        //     }
+
+        //     airplane.style.left = `${position}%`;
+
+        //     requestAnimationFrame(moveAirplane);
+        // }
+
+        // moveAirplane();
+
+        // Simulate multiplier increase
+        let multiplier = 2.64;
+        const multiplierDisplay = document.querySelector('.current-multiplier span');
+
+        function updateMultiplier() {
+            multiplier += 0.01;
+            multiplierDisplay.textContent = multiplier.toFixed(2) + 'x';
+
+            setTimeout(updateMultiplier, 1000);
+        }
+        const data = [
+            {
+                name: "N**5",
+                avatar: "../assets/images/img_ellipse_36.png",
+                bet: "28.20",
+                cashedOut: "6,075.17x",
+                win: "188,283.81",
+                date: "03 Apr",
+                round: "20045.97x"
+            }
+        ];
+
+        const allBetsTab = document.getElementById('allBetsTab');
+        const topTab = document.getElementById('topTab');
+        const allBetsSection = document.getElementById('allBetsSection');
+        const topSection = document.getElementById('topSection');
+
+        allBetsTab.addEventListener('click', () => {
+            allBetsTab.classList.add('active');
+            topTab.classList.remove('active');
+            allBetsSection.classList.remove('hidden');
+            topSection.classList.add('hidden');
+        });
+
+        topTab.addEventListener('click', () => {
+            topTab.classList.add('active');
+            allBetsTab.classList.remove('active');
+            topSection.classList.remove('hidden');
+            allBetsSection.classList.add('hidden');
+        });
+        function openSettingsPopup() {
+            document.getElementById('settingsPopup').style.display = 'flex';
+        }
+
+        function closeSettingsPopup(event) {
+            if (event.target.id === 'settingsPopup') {
+                document.getElementById('settingsPopup').style.display = 'none';
+            }
+        }
+        function toggleFreeBetsPopup() {
+            // Hide settings popup
+            const settingsPopup = document.getElementById('settingsPopup');
+            if (settingsPopup) settingsPopup.style.display = 'none';
+
+            // Toggle free bets overlay
+            const overlay = document.getElementById('freeBetsOverlay');
+            if (overlay) {
+                overlay.classList.toggle('show');
+            }
+        }
+
+        function closeFreeBetsPopup(event) {
+            // If clicked outside popup or close button
+            if (!event || event.target.id === 'freeBetsOverlay' || event.target.classList.contains('close-btn')) {
+                const overlay = document.getElementById('freeBetsOverlay');
+                if (overlay) overlay.classList.remove('show');
+            }
+        }
+
+        document.querySelector('.menu-item:nth-child(1)').addEventListener('click', toggleFreeBetsPopup);
+
+        const archiveBtn = document.querySelector('.archive-btn');
+
+        archiveBtn.addEventListener('click', () => {
+            archiveBtn.classList.toggle('active');
+        });
+
+        // Uncomment to enable multiplier animation
+        // updateMultiplier();
+    </script>
+</body>
+
+</html>
