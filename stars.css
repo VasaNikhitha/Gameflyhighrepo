@@ -8,7 +8,6 @@ body {
 #sky {
   width: 100%;
   height: 68%;
-  background-color: black;
 }
 
 .star {
@@ -248,7 +247,6 @@ body {
 .axis-54 {
   animation: anim52 22919ms, fade7 22919ms;
 }
-
 .axis-55 {
   animation: anim52 25715ms, fade10 25715ms;
 }
