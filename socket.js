@@ -33,7 +33,7 @@ function addTopWinCard(user, bet, multiplier, win, avatarUrl = '') {
   card.className = "card";
   card.innerHTML = `
     <div class="user-infotop">
-      <img src="${avatarUrl || '../assets/images/default-avatar.png'}" class="user-img" />
+      <img src="${avatarUrl || 'assets/images/img_ellipse_72.png'}" class="user-img" />
       <div>
         <div class="username">${user}</div>
         <div class="bet-info">
