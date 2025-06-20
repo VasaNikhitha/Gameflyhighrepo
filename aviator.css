@@ -318,7 +318,7 @@
  .game-container {
      flex: 1;
      position: relative;
-     background-image: url('../assets/images/background.png');
+     background-image: url('assets/images/background.png');
      background-size: cover;
      background-position: center;
      overflow: hidden;
@@ -1442,8 +1442,8 @@
     width: 150px;
     height: auto;
     z-index: 2;
-    top: -76px;
-    left: 348px;
+    top: 0;
+    left: 0;
     /* left: 0;
     top: 396px; */
     /* display: none; */
