@@ -72,7 +72,7 @@
      top: 0;
      left: 0;
      width: 100%;
-     height: 60px;
+     height: 44px;
      background: linear-gradient(90deg, #13152F 0%, #13152F 100%);
      display: flex;
      justify-content: space-between;
@@ -122,7 +122,7 @@
      display: flex;
      align-items: center;
      background-color: #1E2240;
-     border-radius: 12px;
+     border-radius: 5px;
      padding: 6px 15px;
      gap: 5px;
  }
@@ -152,7 +152,7 @@
      border-radius: 8px;
      padding: 12px 9px;
      overflow-y: auto;
-     margin-top: -24px;
+     margin-top: -38px;
  }
 
  .tabs {
@@ -176,7 +176,7 @@
 
  .tab.active {
      background: linear-gradient(90deg, #2282E6 0%, #2282E6 100%);
-     border-radius: 15px;
+     border-radius: 4px;
      color: #0F111A;
  }
 
@@ -322,19 +322,33 @@
      background-size: cover;
      background-position: center;
      overflow: hidden;
-     margin-top: -26px;
+     margin-top: -10px;
  }
+ .multiplier-bar {
+  display: flex;
+  align-items: center;
+  background-color: #0e0e18;
+  padding: 16px;
+  border-radius: 0px;
+  overflow-x: auto;
+  /*margin-top: -10px; move it up
+  position: relative;
+  z-index: 20; make sure it stays above background */
+}
+
 
  
         .multiplier-tabs {
             position: absolute;
-            top: 12px;
-            left: 13px;
+            top: 5px;
+            left: 4px;
             right: 13px;
             display: flex;
-            gap: 4px;
+            gap: 2px;
             height: 35px;
             z-index: 10;
+             overflow-x: auto;
+  flex: 1; /* take available space */
         }
 
         .multiplier-tab {
@@ -342,11 +356,12 @@
             align-items: center;
             justify-content: center;
             background-color: #131626;
-            border-radius: 12px;
-            width: 120px;
+            border-radius: 0px;
+            width: 67px;
             height: 25px;
             font-size: 10px;
             font-weight: 500;
+            white-space: nowrap;
         }
 
  .multiplier-tab.green {
@@ -362,19 +377,19 @@
  }
 
  .multiplier-tab.medium-green {
-     color: #65FFBC;
+     color: #BC65FF;
  }
 
 .history-button {
   display: flex;
   align-items: center;
   background-color: #1E2240;
-  border-radius: 12px;
+  border-radius: 0px;
   padding: 7px 25px 7px 71px;
   gap: 5px;
 
   position: fixed;   /* Anchor to viewport */
-  top: 69px;         /* Distance from top */
+  top: 74px;         /* Distance from top */
   right: 26px;       /* Distance from right */
   z-index: 1000;     /* Keep it on top */
 }
@@ -441,8 +456,8 @@
 
  .bet-toggle {
      display: flex;
-     background-color: #030609;
-     border-radius: 16px;
+     background-color: #1E2240;
+     border-radius: 3px;
      height: 25px;
      width: 136px;
      gap: 5px;
@@ -464,7 +479,7 @@
  .bet-toggle-button.active {
      background: linear-gradient(104deg, #00E5FF 0%, #00d0ff 100%);
      color: #0F111A;
-     border-radius: 12px;
+     border-radius: 3px;
  }
 
  .bet-amount-control {
@@ -472,7 +487,7 @@
      display: flex;
      align-items: center;
      background-color: #1E2240;
-     border-radius: 20px;
+     border-radius: 5px;
      height: 40px;
      width: 221px;
      padding: 0 8px;
@@ -484,7 +499,7 @@
      width: 25px;
      height: 25px;
      background: linear-gradient(104deg, #00d0ff 0%,#00d0ff 100%);
-     border-radius: 12px;
+     border-radius: 4px;
      display: flex;
      align-items: center;
      justify-content: center;
@@ -516,7 +531,7 @@
      height: 23px;
      background-color: #1E2240;
      border: 1px solid #1E2240;
-     border-radius: 11px;
+     border-radius: 4px;
      display: flex;
      align-items: center;
      justify-content: center;
@@ -542,7 +557,7 @@
      right: 21px;
      width: 250px;
      height: 113px;
-     border-radius: 8px;
+     border-radius: 4px;
      display: flex;
      flex-direction: column;
      align-items: center;
@@ -551,21 +566,21 @@
      cursor: pointer;
  }
 
- .action-button.red {
-  background: linear-gradient(180deg, #2282E6, #2282E6); /* Blue */
+ /* .action-button.red {
+  background: linear-gradient(180deg, #2282E6, #2282E6);  Blue 
 }
 
 .action-button.green {
-  background: linear-gradient(180deg, #2282E6, #2282E6); /* Blue */
+  background: linear-gradient(180deg, #2282E6, #2282E6);  Blue
 }
 
 .action-button.cashout {
-  background: linear-gradient(180deg, #FBA814, #FBA814); /* Yellow */
+  background: linear-gradient(180deg, #FBA814, #FBA814);  Yellow 
 }
 
 .action-button.cashed {
-  background: linear-gradient(180deg, #FBA814, #FBA814); /* Yellow */
-}
+  background: linear-gradient(180deg, #FBA814, #FBA814);Yellow 
+} */
 
  .action-button span {
      font-size: 20px;
@@ -573,7 +588,7 @@
  }
 
  .action-button.red span {
-     color: #ffffff;
+     color: #000;
  }
 
  .action-button.green span {
@@ -684,7 +699,7 @@
 
  .card {
      background: #1E2240;
-     border-radius: 12px;
+     border-radius: 5px;
      padding: 16px;
      margin-bottom: 12px;
  }
@@ -1114,7 +1129,7 @@
      margin: 0;
      font-size: 18px;
      font-weight: bold;
-     color: #f7efef;
+     color: #0F111A;
  }
 
  .close-btn {
@@ -1447,6 +1462,7 @@
     /* left: 0;
     top: 396px; */
     /* display: none; */
+    transform: rotate(20deg); /* rotate counterclockwise */
 }
 
 .trajectory {
@@ -1559,13 +1575,35 @@
 }
 
 .current-multiplier {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
   color: #00d0ff;
   display: none; /* hidden by default */
 }
+#flight-path {
+  background-color: rgba(0, 255, 0, 0.05); /* light green */
+}
 
+/* Default (Bet) - Blue */
+.action-button {
+  background-color: #2282E6;
+  color: #000;
+}
 
+/* Cancel - Red */
+.action-button.cancel {
+  background-color: #E63434;
+}
+
+/* Cashout - Yellow */
+.action-button.cashout {
+  background-color: #FBA814;
+}
+
+/* Cashed (Won) - Green */
+.action-button.cashed {
+  background-color: #00C851;
+}
  /* Mobile view */
 
  @media (max-width: 768px) {
@@ -1574,7 +1612,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 32vh;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
@@ -1586,7 +1624,7 @@
     left: 1%;
     width: 348px;
     height: 277px; */
-    top: 38px;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -1598,8 +1636,8 @@
         width: 122px;
         height: auto;
         z-index: 2;
-        top: -58px;
-        left: 293px;
+        top: 0px;
+        left: 0px;
 }
 
 .trajectory {
@@ -1626,7 +1664,7 @@
      }
 
      .logo {
-         width: 28px;
+         width: 62px;
          height: 55px;
          margin-left: -10px;
          margin-top: -16px;
@@ -1670,7 +1708,7 @@
          gap: 4px;
 
          background-color: #030609;
-         border-radius: 20px;
+         border-radius: 5px;
          padding: 4px 12px;
 
          position: absolute;
@@ -1738,18 +1776,12 @@
          margin-top: 7px;
      }
 
-     .game-container {
-         height: 40vh;
-         /* Slightly shorter for smaller screens */
-         margin-top: 10px;
-         /* Optional spacing on mobile */
-         background-size: cover;
-         /* Optional: full background coverage */
-         background-position: center;
-         /* Center the image */
-         width: 100%;
-         /* Ensure it spans full width */
-     }
+      .game-container {
+    background-size: contain; /* Show full image without crop */
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: 50vh; /* Or adjust for best visual height */
+  }
 
      .game-content {
          height: auto;
@@ -1760,30 +1792,55 @@
          /* Optional: add spacing for mobile layout */
      }
 
+.multiplier-bar {
+  position: relative;
+  padding-right: 80px; /* Prevent multipliers from hiding behind History button */
+}
+
 .multiplier-tabs {
-                top: 8px;
-                left: 0;
-                right: 0;
-                padding: 0 8px;
-                gap: 4px;
-                height: 30px;
-                overflow-x: auto;
-                white-space: nowrap;
-                scrollbar-width: none;
-                /* Firefox */
-            }
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 4px;
+  padding: 0 8px;
+  height: 30px;
+  scrollbar-width: none;
+}
 
-            .multiplier-tabs::-webkit-scrollbar {
-                display: none;
-                /* Chrome, Safari */
-            }
+.multiplier-tabs::-webkit-scrollbar {
+  display: none;
+}
 
-            .multiplier-tabs>* {
-                flex: 0 0 auto;
-                /* Prevent items from shrinking or wrapping */
-                font-size: 13px;
-                padding: 4px 10px;
-            }
+.history-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  background-color: #1E2240;
+  border-radius: 4px;
+  padding: -12px 12px;
+  gap: 5px;
+  z-index: 10;
+  height: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+.history-button img {
+     width: 16px;
+     height: 16px;
+     margin-left: 52px;
+
+ }
+
+ .history-button span {
+     font-size: 10px;
+     font-weight: 500;
+     color: #ffffff;
+     margin-right: 103px;
+ }
 
 
      .betting-controls {
@@ -1794,6 +1851,7 @@
          border-radius: 0 0 8px 8px;
          background: linear-gradient(180deg, #03060900 0%, #000000 100%);
          position: relative;
+         background: transparent !important; /* ✅ Removes the black gradient */
      }
 
      .betting-panel,
@@ -1811,7 +1869,7 @@
          display: flex;
          width: 120px;
          height: 24px;
-         border-radius: 12px;
+         border-radius: 3px;
          background-color: #1c1c2e;
          overflow: hidden;
      }
@@ -1846,7 +1904,7 @@
          justify-content: space-between;
          align-items: center;
          background-color: #1c1c2e;
-         border-radius: 6px;
+         border-radius: 3px;
          height: 36px;
          padding: 0 8px;
          margin-top: 12px;
@@ -1861,7 +1919,7 @@
          display: flex;
          align-items: center;
          justify-content: center;
-         border-radius: 4px;
+         border-radius: 2px;
          cursor: pointer;
      }
 
@@ -1884,7 +1942,7 @@
          background-color: #1c1c2e;
          color: #fff;
          text-align: center;
-         border-radius: 4px;
+         border-radius: 2px;
          display: flex;
          justify-content: center;
          align-items: center;
@@ -1896,7 +1954,7 @@
          height: 110px;
          bottom: 15px;
          right: 15px;
-         border-radius: 6px;
+         border-radius: 4px;
          gap: 3px;
      }
 
@@ -1904,7 +1962,7 @@
          font-size: 16px;
      }
 
-     .action-button.red {
+     /* .action-button.red {
          background: linear-gradient(180deg, #2282E6, #2282E6);
      }
 
@@ -1916,7 +1974,7 @@
      }
  .action-button.green .cashed{
          background: linear-gradient(180deg, #FBA814, #FBA814);
-     }
+     } */
      .auto-cashout {
          display: flex;
          align-items: center;
@@ -1983,99 +2041,13 @@
      .bet-history-popup {
          width: 95%;
      }
-    .round-history-bar {
-    background-color: #0f0f1a;
-    padding: 12px;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 6px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    -ms-overflow-style: none; /* IE & Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .round-history-bar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-  }
-
-  .round-history-bar > * {
-    flex: 0 0 auto;
-  }
-
-  .multiplier-tab {
-    font-size: 12px;
-    padding: 4px 10px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    background-color: #222;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-
-  .multiplier-tab-ellipsis {
-    width: 60px;
-    height: 24px;
-    font-size: 10px;
-    cursor: pointer;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #131626;
-    border-radius: 37px;
-  }
-
-  .full-history-inline {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 6px;
-    margin-top: 6px;
-  }
-
-  .full-history-inline::-webkit-scrollbar {
-    display: none;
-  }
 
   .hidden {
     display: none !important;
   }
 
-  .round-history-bar h5 {
-    width: 100%;
-    font-size: 14px;
-    color: #ffffff;
-    margin-bottom: 8px;
-    margin-top: 0;
-    margin-left: 10px;
-  }
-
-  .multiplier-tab.history-button {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background-color: #333;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    color: white;
-  }
-
-  .multiplier-tab.history-button img {
-    width: 16px;
-    height: 16px;
-  }
+  
+ 
 
 
  }
@@ -2086,7 +2058,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 32vh;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
@@ -2110,8 +2082,8 @@
     width: 150px;
     height: auto;
     z-index: 2;
-    top: -76px;
-    left: 348px;
+    top: 0px;
+    left: 0px;
     /* left: 0;
     top: 396px; */
     /* display: none; */
@@ -2129,7 +2101,7 @@
         height: 93px;
         bottom: 26px;
         right: 12px;
-        border-radius: 6px;
+        border-radius: 4px;
         gap: 3px;
     }
 .logo-small {
@@ -2201,7 +2173,7 @@
         justify-content: center;
         gap: 4px;
         background-color: #030609;
-        border-radius: 20px;
+        border-radius: 5px;
         padding: 4px 8px;
         position: absolute;
         right: 3px;
@@ -2212,16 +2184,14 @@
     }
 }
 @media only screen and (device-width: 768px) and (device-height: 852px) {
-    .animation-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 10;
-}
+   .animation-container {
+    height: 100vh; /* or more depending on layout */
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
 
 .flight-group {
    position: absolute;
@@ -2241,8 +2211,8 @@
     width: 150px;
     height: auto;
     z-index: 2;
-    top: -76px;
-    left: 348px;
+    top: 0px;
+    left: 0px;
     /* left: 0;
     top: 396px; */
     /* display: none; */
@@ -2306,7 +2276,7 @@
         height: 101px;
         bottom: 20px;
         right: 12px;
-        border-radius: 6px;
+        border-radius: 4px;
         gap: 3px;
     }
 
@@ -2333,7 +2303,7 @@
          background-color: #1c1c2e;
          color: #fff;
          text-align: center;
-         border-radius: 4px;
+         border-radius: 2px;
          display: flex;
          justify-content: center;
          align-items: center;

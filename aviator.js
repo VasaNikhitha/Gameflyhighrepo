@@ -96,39 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-
-// Simulate airplane movement
-//  let position = 30;
-// let direction = 1;
-// const airplane = document.querySelector('.airplane');
-
-// function moveAirplane() {
-//     position += 0.2 * direction;
-
-//     if (position > 60) {
-//         direction = -1;
-//     } else if (position < 20) {
-//         direction = 1;
-//     }
-
-//     airplane.style.left = `${position}%`;
-
-//     requestAnimationFrame(moveAirplane);
-// }
-
-// moveAirplane();
-
-// Simulate multiplier increase
-// let multiplier = 2.64;
-// const multiplierDisplay = document.querySelector('.current-multiplier span');
-
-// function updateMultiplier() {
-//     multiplier += 0.01;
-//     multiplierDisplay.textContent = multiplier.toFixed(2) + 'x';
-
-//     setTimeout(updateMultiplier, 1000);
-// }
     window.addEventListener("load", function () {
   const loader = document.getElementById("loader");
   const titleScreen = document.getElementById("title-screen");
@@ -374,52 +341,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   const changeAvatarBtn = document.querySelector('.change-avatar');
-//   const avatarModal = document.getElementById('avatarSelectionModal');
-//   const closeBtn = document.getElementById('closeAvatarModal');
-
-//   // Open modal on button click
-//   changeAvatarBtn.addEventListener('click', () => {
-//     avatarModal.style.display = 'flex';
-//   });
-
-//   // Close modal on close button click
-//   closeBtn.addEventListener('click', () => {
-//     avatarModal.style.display = 'none';
-//   });
-
-//   // Close modal on clicking outside modal-content (the backdrop)
-//   avatarModal.addEventListener('click', (e) => {
-//     if (e.target.classList.contains('modal-backdrop')) {
-//       avatarModal.style.display = 'none';
-//     }
-//   });
-
-//   // Avatar selection logic
-//   avatarModal.querySelector('.avatars').addEventListener('click', (e) => {
-//     if (e.target.classList.contains('avatar')) {
-//       const selectedAvatar = e.target.src;
-//       console.log('Selected avatar:', selectedAvatar);
-//       // TODO: do something with the selected avatar, e.g., update UI or send to server
-//       avatarModal.style.display = 'none';
-//     }
-//   });
-// });
-
-// document.querySelectorAll('.action-button span:first-child').forEach(button => {
-//   button.addEventListener('click', () => {
-//     const plane = document.getElementById('planeAnimation');
-//     plane.classList.remove('animate-flight'); // Reset if already animated
-//     void plane.offsetWidth; // Force reflow
-//     plane.classList.add('animate-flight');
-//   });
-// });
-
-// Uncomment to enable multiplier animation
-// updateMultiplier();
 let sky, center
 
 function dot(i) {
@@ -444,9 +365,10 @@ function init() {
    clear()
    for (let i = 0; i < 360; i++) sky.appendChild(dot(i))
 }
-
+function isSoundEnabled() {
+  return document.getElementById("soundToggle")?.checked;
+}
 window.onload = init
-gsap.registerPlugin(MotionPathPlugin);
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -467,106 +389,122 @@ document.getElementById("animationToggle").addEventListener("change", (e) => {
   }
 });
 
-let planeAnimAirplane, planeAnimTrajectory;
 
-function startPlaneAnimation() {
+let planeAnimAirplane, planeAnimTrajectory;
+function startPlaneAnimation(duration = 10) {
   const toggle = document.getElementById("animationToggle");
   const airplane = document.getElementById("airplane");
   const trajectoryPath = document.getElementById("trajectory-path");
-
-  if (!toggle || !toggle.checked) {
-    console.log("🚫 Animation toggle is OFF. Hiding airplane and trajectory.");
-    if (airplane) airplane.style.display = 'none';
-    if (trajectoryPath) trajectoryPath.style.display = 'none';
-    return;
-  }
+  const planeSound = document.getElementById("planeSound");
 
   if (!airplane || !trajectoryPath) {
     console.error("❌ Airplane or trajectory path element missing.");
     return;
   }
 
-  // Show and reset
-  gsap.set(airplane, { x: 0, y: 264, display: 'block' });
-  gsap.set(trajectoryPath, { x: 0, y: 264, display: 'block' });
+  const isTabletOrMobile = window.matchMedia("(max-width: 768px)").matches;
 
-  // Animate airplane
-  planeAnimAirplane = gsap.to(airplane, {
-    motionPath: [
-      { x: 236, y: 202 },
-      { x: 400, y: 128 },
-      { x: 527, y: 0 }
-    ],
-    duration: 10,
-    ease: "power1.inOut"
-  });
+  if (isTabletOrMobile) {
+    // ✅ Mobile/Tablet Flight Logic (relative to animation-container)
+    const container = document.querySelector(".animation-container");
+    if (!container) {
+      console.error("❌ Missing .animation-container");
+      return;
+    }
 
-  // Animate trajectory
-  planeAnimTrajectory = gsap.to(trajectoryPath, {
-    motionPath: [
-      { x: 236, y: 202 },
-      { x: 400, y: 128 },
-      { x: 527, y: 0 }
-    ],
-    duration: 10,
-    ease: "power1.inOut"
-  });
-}
+    const containerHeight = container.offsetHeight;
+    const startY = containerHeight * 0.65; // 65% down in container
 
-function stopPlaneAnimation() {
-  if (planeAnimAirplane) planeAnimAirplane.kill();
-  if (planeAnimTrajectory) planeAnimTrajectory.kill();
-}
+    gsap.set(airplane, { x: 0, y: startY, display: "block" });
+    gsap.set(trajectoryPath, { x: 0, y: startY, display: "block" });
 
-/* function startPlaneAnimation(k = 1.0) {
-  const flightGroup = document.querySelector(".flight-group");
-  const airplane = document.getElementById("airplane");
-  const trajectory = document.getElementById("trajectoryImage");
+    const flightPath = [
+      { x: 0, y: startY },
+      { x: 150, y: startY - containerHeight * 0.25 },
+      { x: 300, y: startY - containerHeight * 0.45 },
+      { x: 420, y: startY - containerHeight * 0.6 }
+    ];
 
-  if (!flightGroup || !airplane || !trajectory) {
-    console.error("❌ Animation elements missing");
+    if (planeSound && isSoundEnabled()) {
+      planeSound.currentTime = 0;
+      planeSound.play().catch((err) =>
+        console.warn("Plane sound error:", err)
+      );
+    }
+
+    planeAnimAirplane = gsap.to(airplane, {
+      duration: duration,
+      ease: "power1.inOut",
+      motionPath: {
+        path: flightPath,
+        curviness: 1.5
+      }
+    });
+
+    planeAnimTrajectory = gsap.to(trajectoryPath, {
+      duration: duration,
+      ease: "power1.inOut",
+      motionPath: {
+        path: flightPath,
+        curviness: 1.5
+      }
+    });
+
     return;
   }
 
-  gsap.killTweensOf(flightGroup);
-  gsap.set([airplane, trajectory], { opacity: 1 });
-  gsap.set(flightGroup, { x: 0, y: 0, scale: 1, opacity: 1 });
+  // ✅ Desktop Flight Logic
+  const gamecid = document.getElementById("gamecid").offsetHeight - 205;
+  const startY = gamecid - 150;
 
-  planeTimeline = gsap.timeline();
+  gsap.set(airplane, { x: 0, y: startY, display: "block" });
+  gsap.set(trajectoryPath, { x: 0, y: 264, display: "block" });
 
-  planeTimeline.to(flightGroup, {
-    duration: 1.5,
-    x: 300,
-    y: -200,
-    scale: 1.5,
-    ease: "power2.out"
+  const flightPath = [
+    { x: 0, y: startY },
+    { x: 200, y: startY - 80 },
+    { x: 400, y: startY - 160 },
+    { x: 600, y: startY - 250 }
+  ];
+
+  if (planeSound && isSoundEnabled()) {
+    planeSound.currentTime = 0;
+    planeSound.play().catch((err) =>
+      console.warn("Plane sound error:", err)
+    );
+  }
+
+  planeAnimAirplane = gsap.to(airplane, {
+    duration: duration,
+    ease: "power1.inOut",
+    motionPath: {
+      path: flightPath,
+      curviness: 1.5
+    }
   });
 
-  planeTimeline.to(trajectory, {
-    duration: 1,
-    opacity: 0
-  }, "<+1");
-
-  const travelDistance = Math.min(300 + k * 60, 800);
-  const travelDuration = Math.min(2 + k * 0.3, 6);
-
-  planeTimeline.to(flightGroup, {
-    duration: travelDuration,
-    x: travelDistance,
-    y: -250,
-    scale: 1.6,
-    ease: "power1.inOut"
+  planeAnimTrajectory = gsap.to(trajectoryPath, {
+    duration: duration,
+    ease: "power1.inOut",
+    motionPath: {
+      path: flightPath,
+      curviness: 1.5
+    }
   });
-} */
+}
 
-/* function stopPlaneAnimation() {
-  gsap.to(".flight-group", {
-    delay: 2,
-    duration: 0.5,
-    opacity: 0,
-    ease: "power1.in"
-  });
-} */
+
+
+
+
+function stopPlaneAnimation() {
+  if (planeAnimAirplane) {
+    planeAnimAirplane.kill();
+    // console.log("hi");
+  }
+  if (planeAnimTrajectory) planeAnimTrajectory.kill();
+}
+
 function resetPlaneAnimation() {
   const flightGroup = document.querySelector(".flight-group");
   const airplane = document.getElementById("airplane");
@@ -577,22 +515,6 @@ function resetPlaneAnimation() {
     gsap.set(flightGroup, { x: 0, y: 0, scale: 1, opacity: 1 });
   }
 }
-
-function updateKoefficientDisplay(k) {
-  const currentDisplay = document.getElementById("currentMultiplier");
-  if (!currentDisplay) return;
-
-  currentDisplay.style.display = "block";
-  currentDisplay.querySelector("span").innerText = `${k.toFixed(2)}x`;
-}
-function hideKoefficientDisplay(delay = 0) {
-  const currentDisplay = document.getElementById("currentMultiplier");
-  if (!currentDisplay) return;
-  setTimeout(() => {
-    currentDisplay.style.display = "none";
-  }, delay);
-}
-
 
 function appendMultiplierToTabs(k) {
   const tabsContainer = document.getElementById("multiplierTabs");
