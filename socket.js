@@ -211,7 +211,7 @@ socket.addEventListener("message", (event) => {
           updateBetUI(i, 0, 0, 0);
           wonProcessed[i] = false;
         });
-        setTimeout(() => hideKoefficientDisplay(), 5);
+        setTimeout(() => hideKoefficientDisplay(), 50);
         break;
 
       case "started":
@@ -247,7 +247,7 @@ socket.addEventListener("message", (event) => {
         animationStarted = false;
         hideKoefficientDisplay();
         appendMultiplierToTabs(data.k);
-        setTimeout(() => showCashoutUI(), 5);
+        setTimeout(() => showCashoutUI(), 50);
         [0, 1].forEach(i => {
           activeBets[i] = data.bet_sum > 0;
           document.getElementById(`bet-status-${i}`).innerText = "Bet";

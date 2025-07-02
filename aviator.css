@@ -588,11 +588,11 @@
  }
 
  .action-button.red span {
-     color: #000;
+     color: #FFFFFF;
  }
 
  .action-button.green span {
-     color: #000;
+     color: #FFFFFF;
  }
 
  .auto-cashout {
@@ -800,7 +800,7 @@
      width: 90%;
      max-width: 400px;
      background: linear-gradient(to bottom, #0f0f2f, #001f3f);
-     border-radius: 12px;
+     border-radius: 0px;
      overflow: hidden;
  }
 
@@ -861,7 +861,7 @@
      background: none;
      color: 0F111A;
      padding: 6px 12px;
-     border-radius: 20px;
+     border-radius: 0px;
      cursor: pointer;
  }
 
@@ -958,7 +958,7 @@
  /* Main popup box */
  .freebets-popup {
      background: linear-gradient(180deg, #13152F 0%, #13152F 100%);
-     border-radius: 16px;
+     border-radius: 0px;
      width: 472px;
      padding: 6px;
      font-family: 'Segoe UI', sans-serif;
@@ -969,11 +969,11 @@
  .popup-header {
      background-color: #00E5FF;
      color: 0F111A ;
-     padding: 16px;
-     border-radius: 12px 12px 0 0;
+     padding: 10px;
+     border-radius: 0px 0px 0 0;
      display: flex;
      justify-content: space-between;
-     align-items: center;
+     /* align-items: center; */
  }
 
  .popup-header .title {
@@ -981,6 +981,7 @@
      align-items: center;
      font-weight: 600;
      font-size: 16px;
+     color:#0F111A;
  }
 
  .popup-icon {
@@ -991,7 +992,7 @@
      /* optional if using gap */
  }
 
- .close-btn {
+ /* .close-btn {
      background-color: black;
      border: none;
      color: white;
@@ -1003,7 +1004,7 @@
      display: inline-flex;
      align-items: center;
      justify-content: center;
- }
+ } */
 
  /* Popup body */
  .popup-body {
@@ -1016,7 +1017,7 @@
      display: flex;
      align-items: center;
      border: 2px solid#00d0ff;
-     border-radius: 24px;
+     border-radius:0px;
      padding: 10px 16px;
      margin-bottom: 16px;
      cursor: pointer;
@@ -1057,7 +1058,7 @@
 
  .active-title {
      font-weight: bold;
-     font-size: 14px;
+     font-size:12px;
  }
 
  /* Archive button */
@@ -1066,7 +1067,7 @@
      color: gray;
      border: 2px solid gray;
      /* white border */
-     border-radius: 25px;
+     /* border-radius: 25px; */
      padding: 6px 12px;
      font-size: 12px;
      cursor: not-allowed;
@@ -1113,7 +1114,7 @@
      background: linear-gradient(180deg, #0c0f2c 0%, #0b1222 100%);;
      width: 90%;
      max-width: 500px;
-     border-radius: 10px;
+     border-radius: 0px;
      overflow: hidden;
  }
 
@@ -1127,18 +1128,25 @@
 
  .popup-header h2 {
      margin: 0;
-     font-size: 18px;
+     font-size: 14px;
      font-weight: bold;
      color: #0F111A;
  }
 
- .close-btn {
-     background: none;
-     border: none;
-     font-size: 16px;
-     color: #f7efef;
-     cursor: pointer;
- }
+.close-btn {
+    background: #0A0E2F; /* dark navy/black circle */
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    width: 21px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
 
  table {
      width: 100%;
@@ -1219,7 +1227,7 @@
      padding: 20px 30px;
      width: 90%;
      max-width: 900px;
-     border-radius: 10px;
+     border-radius: 0px;
      position: relative;
      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
  }
@@ -1233,7 +1241,7 @@
 
  .modal-header h2 {
      color: #00d0ff;
-     font-size: 18px;
+     font-size: 12px;
  }
 
  .modal-header .buttons {
@@ -1242,24 +1250,29 @@
  }
 
  .modal-header .button {
-     background-color: #353a57;
+     background-color: #353B6A;
      color: white;
-     padding: 6px 14px;
+     padding: 5px 14px;
      border: none;
-     border-radius: 6px;
-     font-size: 14px;
+     border-radius: 0px;
+     font-size: 10x;
      cursor: pointer;
  }
 
- .close-btn {
-     background: none;
-     color: white;
-     font-size: 14px;
-     font-weight: bold;
-     cursor: pointer;
-     border: none;
- }
-
+.close-btnmodal {
+    background: #353B6A; /* dark navy/black circle */
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    width: 21px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
  .video-box {
      background-color: black;
      border-radius: 10px;
@@ -1302,7 +1315,7 @@
  }
 
  .step p {
-     font-size: 14px;
+     font-size: 12px;
      line-height: 1.4;
  }
 
@@ -1330,7 +1343,7 @@
 .modal-content {
   background: #10102d;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 0px;
   max-width: 600px;
   width: 90%;
   color: #fff;
@@ -1344,12 +1357,20 @@
   margin-bottom: 1rem;
 }
 
-.close-btn {
-  background: transparent;
-  border: none;
-  font-size: 1rem;
-  color: #fff;
-  cursor: pointer;
+.close-btngame {
+   background: #353B6A; /* dark navy/black circle */
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    width: 21px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
 }
 
 .video-box {
@@ -1421,6 +1442,7 @@
   justify-content: center;
   text-align: center;
   padding: 0 8px;
+  font-size: 12px;
 }
 .stepsgame p {
   margin: 0.2rem 0 0 0;
@@ -1587,7 +1609,7 @@
 /* Default (Bet) - Blue */
 .action-button {
   background-color: #2282E6;
-  color: #000;
+  color: #FFFFFF;
 }
 
 /* Cancel - Red */
@@ -1612,7 +1634,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 32vh;
+  height: 29%;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
@@ -1624,7 +1646,7 @@
     left: 1%;
     width: 348px;
     height: 277px; */
-    top: 0;
+    top: 38px;
     left: 0;
     width: 100%;
     height: 100%;
@@ -1668,7 +1690,7 @@
          height: 55px;
          margin-left: -10px;
          margin-top: -16px;
-         filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%);
+         /* filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%); */
      }
 
      .user-info {
@@ -1680,7 +1702,7 @@
          width: 100%;
          padding: 8px 12px;
          box-sizing: border-box;
-         margin-left: 0;
+         margin-left: -51px;
      }
 
      .user-avatar {
@@ -1707,13 +1729,13 @@
          justify-content: center;
          gap: 4px;
 
-         background-color: #030609;
-         border-radius: 5px;
+         background-color: #1E2240;
+         border-radius: 0px;
          padding: 4px 12px;
 
          position: absolute;
-         right: 12px;
-         top: 18px;
+         right: 20px;
+         top: 10px;
 
          border: 1px solid #2e2e3e;
          height: 28px;
@@ -1776,7 +1798,7 @@
          margin-top: 7px;
      }
 
-      .game-container {
+          .game-container {
     background-size: contain; /* Show full image without crop */
     background-position: top center;
     background-repeat: no-repeat;
@@ -1791,7 +1813,6 @@
          padding-bottom: 16px;
          /* Optional: add spacing for mobile layout */
      }
-
 .multiplier-bar {
   position: relative;
   padding-right: 80px; /* Prevent multipliers from hiding behind History button */
@@ -1843,11 +1864,11 @@
  }
 
 
-     .betting-controls {
+      .betting-controls {
          display: flex;
          flex-direction: column;
          gap: 5px;
-         padding:300px  5px 12px;
+         padding:325px  1px 12px;
          border-radius: 0 0 8px 8px;
          background: linear-gradient(180deg, #03060900 0%, #000000 100%);
          position: relative;
@@ -1857,8 +1878,8 @@
      .betting-panel,
      .betting-panel-right {
          background-color: #0f0f1a;
-         border-radius: 8px;
-         padding: 12px 14px;
+         border-radius: 0px;
+         padding: 15px 14px;
          display: flex;
          flex-direction: column;
          gap: 10px;
@@ -2020,7 +2041,7 @@
          right: 12px;
          width: 24px;
          height: 18px;
-         filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%);
+         /* filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%); */
      }
 
 
@@ -2058,7 +2079,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 32vh;
+  height: 100%;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
@@ -2082,8 +2103,8 @@
     width: 150px;
     height: auto;
     z-index: 2;
-    top: 0px;
-    left: 0px;
+    top: -76px;
+    left: 348px;
     /* left: 0;
     top: 396px; */
     /* display: none; */
@@ -2111,7 +2132,7 @@
         width: 24px;
         height: 18px;
     
-  filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%);
+  /* filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%); */
 
 
     }
@@ -2122,6 +2143,28 @@
     position: relative;
     padding: 0 3px;
 }
+
+      .betting-controls {
+         display: flex;
+         flex-direction: column;
+         gap: 5px;
+         padding:283px  0px 12px;
+         border-radius: 0 0 8px 8px;
+         background: linear-gradient(180deg, #03060900 0%, #000000 100%);
+         position: relative;
+         background: transparent !important; /* ✅ Removes the black gradient */
+     }
+
+     .betting-panel,
+     .betting-panel-right {
+         background-color: #0f0f1a;
+         border-radius: 0px;
+         padding: 15px 14px;
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         margin-bottom:0;
+     }
 .betting-panel-right .auto-cashout {
     margin-left: -19%;
     margin-top: 0%;
@@ -2172,26 +2215,28 @@
         align-items: center;
         justify-content: center;
         gap: 4px;
-        background-color: #030609;
-        border-radius: 5px;
+        background-color: #1E2240;
+        border-radius: 0px;
         padding: 4px 8px;
         position: absolute;
-        right: 3px;
-        top: 18px;
+        right: 19px;
+        top: 10px;
         border: 1px solid #2e2e3e;
         height: 28px;
         z-index: 10;
     }
 }
 @media only screen and (device-width: 768px) and (device-height: 852px) {
-   .animation-container {
-    height: 100vh; /* or more depending on layout */
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
+    .animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
 
 .flight-group {
    position: absolute;
@@ -2211,8 +2256,8 @@
     width: 150px;
     height: auto;
     z-index: 2;
-    top: 0px;
-    left: 0px;
+    top: -76px;
+    left: 348px;
     /* left: 0;
     top: 396px; */
     /* display: none; */
@@ -2338,7 +2383,7 @@
   right: 13px;
   width: 28px;
   height: 22px;
-  filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%);
+  /* filter: invert(67%) sepia(92%) saturate(7480%) hue-rotate(160deg) brightness(101%) contrast(100%); */
 }
 
  .user-info {

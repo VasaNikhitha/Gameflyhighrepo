@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const openHowToPlaySpan = document.getElementById('howToPlayLink');   // Another open trigger if any
   const closeHowToPlayBtn = document.getElementById('closeModal');      // Close btn in How to Play modal
   const gameRulesBtn = document.getElementById('gameRulesModalbtn');    // Button inside How To Play modal
-  const closeGameRulesBtn = gameRulesModal.querySelector('.close-btn'); // Close btn in Game Rules modal
+  const closeGameRulesBtn = gameRulesModal.querySelector('.close-btngame'); // Close btn in Game Rules modal
 
   // Helper to pause and reset video inside a modal
   function resetVideo(modal) {
