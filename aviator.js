@@ -125,19 +125,19 @@ document.addEventListener("DOMContentLoaded", function () {
  const allBetsSection = document.getElementById('allBetsSection');
  const topSection = document.getElementById('topSection');
 
-// allBetsTab.addEventListener('click', () => {
-// //     allBetsTab.classList.add('active');
-//   topTab.classList.remove('active');
-// //     allBetsSection.classList.remove('hidden');
-//      topSection.classList.add('hidden');
-// });
-
- topTab.addEventListener('click', () => {
-   topTab.classList.add('active');
-    // allBetsTab.classList.remove('hidden');
-     topSection.classList.remove('active');
-    //  allBetsSection.classList.add('hidden');
+allBetsTab.addEventListener('click', () => {
+     allBetsTab.classList.add('active');
+ topTab.classList.remove('hidden');
+     allBetsSection.classList.remove('active');
+    topSection.classList.add('hidden');
  });
+
+//  topTab.addEventListener('click', () => {
+//    topTab.classList.add('active');
+//    allBetsTab.classList.remove('hidden');
+//      topSection.classList.remove('active');
+//      allBetsSection.classList.add('hidden');
+//  });
 function openSettingsPopup() {
     document.getElementById('settingsPopup').style.display = 'flex';
 }
@@ -372,7 +372,7 @@ window.onload = init
 
 gsap.registerPlugin(MotionPathPlugin);
 
-let planeTimeline;
+let planeAnimAirplane, planeAnimTrajectory;
 
 // -------------------------
 // PLANE ANIMATION
@@ -390,7 +390,7 @@ document.getElementById("animationToggle").addEventListener("change", (e) => {
 });
 
 
-let planeAnimAirplane, planeAnimTrajectory;
+
 function startPlaneAnimation(duration = 10) {
   const toggle = document.getElementById("animationToggle");
   const airplane = document.getElementById("airplane");
@@ -455,7 +455,7 @@ function startPlaneAnimation(duration = 10) {
 
   // ✅ Desktop Flight Logic
   const gamecid = document.getElementById("gamecid").offsetHeight - 205;
-  const startY = gamecid - 150;
+  const startY = gamecid - 192.26;
 
   gsap.set(airplane, { x: 0, y: startY, display: "block" });
   gsap.set(trajectoryPath, { x: 0, y: 264, display: "block" });

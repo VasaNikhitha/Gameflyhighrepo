@@ -50,7 +50,7 @@
                                 <div class="toggle">
                                     <div class="toggle-label">Sound</div>
                                     <label class="switch">
-                                        <input type="checkbox" id="soundToggle" checked>
+                                        <input type="checkbox" id="soundToggle">
                                         <span class="slider"></span>
                                     </label>
                                 </div>
@@ -77,7 +77,7 @@
                                 <div class="menu-item" id="history-btn">My Bet History</div>
                                 <div class="menu-item">Game Limits</div>
                                 <div class="menu-item" class="open-modal-btn" id="openModal">How to Play</div>
-                                <div class="menu-item">Game Rules</div>
+                                <div class="menu-item highlight">Game Rules</div>
                                 <div class="menu-item">Provably Fair settings</div>
                                 <div class="menu-item">Game Room : Room #2</div>
                             </div>
@@ -93,7 +93,7 @@
                  <span class="balance" id="wallet-balance">₹0.00</span>
             </div>
             <div class="how-to-play">
-                <img src="assets/images/img_group.svg" alt="How to play icon">
+                <!-- <img src="assets/images/img_group.svg" alt="How to play icon"> -->
                 <span id="howToPlayLink">How to play</span>
             </div>
         </header>
@@ -101,15 +101,15 @@
         <div class="main-container">
             <div class="bets-container">
                 <div class="tabs">
-                    <!-- <div class="tab active" id="allBetsTab">All Bets</div> -->
+                     <div class="tab active" id="allBetsTab">My Bets</div>
                     <!-- <div class="tab">My Bets</div> -->
-                    <div class="tab active" id="topTab">Top</div>
+                    <!-- <div class="tab" id="topTab">Top</div> -->
                 </div>
 
 
-                <div id="topSection">
+                 <!-- <div id="topSection">
 
-                    <!-- <div class="table-header">
+                     <div class="table-header">
                     <div class="header-cell user-cell">Huge Wins</div>
                     <div class="header-cell bet-cell">Biggest Wins</div>
                     <div class="header-cell cashout-cell">Multipliers</div>
@@ -120,10 +120,9 @@
                     <button class="time-filter">Day</button>
                     <button class="time-filter active">Month</button>
                     <button class="time-filter">Year</button>
-                    </div> -->
+                    </div> 
 
-                    <!-- Card List -->
-                    <!-- <div class="card">
+                 <div class="card">
                         <div class="user-infotop">
                             <img src="assets/images/img_ellipse_36.png" alt="User" class="user-img" />
                             <div>
@@ -134,29 +133,8 @@
                                      <div id="win-inr-0">Win INR : <strong></strong></div>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- <div class="footer-header">
-                            <div class="footer-info">
-                                <span>03 Apr</span>
-                                <span>Round : <strong>#20045.97x</strong></span>
-                                <img src="assets/images/shield-icon.svg" alt="Success" class="status-icon" />
-                                <img src="assets/images/message-icon.svg" alt="Success" class="status-icon" />
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="card">
-                        <div class="user-infotop">
-                            <img src="assets/images/img_ellipse_72.png" alt="User" class="user-img" />
-                            <div>
-                                <!-- <div class="username">Navn..</div> -->
-                                <div class="bet-info">
-                                    <div id="bet-inr-1">Bet INR : <strong></strong></div>
-                                    <div id="multiplier-1">Cash Out : <span class="multiplier"></span></div>
-                                    <div id="win-inr-1">Win INR : <strong></strong></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="footer-header">
+                        </div> 
+                        <div class="footer-header">
                             <div class="footer-info">
                                 <span>03 Apr</span>
                                 <span>Round : <strong>#20045.97x</strong></span>
@@ -164,28 +142,42 @@
                                 <img src="assets/images/message-icon.svg" alt="Success" class="status-icon" />
                             </div>
                         </div> 
-                    </div> -->
-                   
-                    <!-- add more .card elements as needed -->
-                </div>
-                <!-- <div id="allBetsSection" class="allbets">
+                    </div>
+                     <div class="card">
+                        <div class="user-infotop">
+                            <img src="assets/images/img_ellipse_72.png" alt="User" class="user-img" />
+                            <div>
+                                <div class="username">Navn..</div> 
+                                <div class="bet-info">
+                                    <div id="bet-inr-1">Bet INR : <strong></strong></div>
+                                    <div id="multiplier-1">Cash Out : <span class="multiplier"></span></div>
+                                    <div id="win-inr-1">Win INR : <strong></strong></div>
+                                </div>
+                            </div>
+                        </div> 
+                         <div class="footer-header">
+                            <div class="footer-info">
+                                <span>03 Apr</span>
+                                <span>Round : <strong>#20045.97x</strong></span>
+                                <img src="assets/images/shield-icon.svg" alt="Success" class="status-icon" />
+                                <img src="assets/images/message-icon.svg" alt="Success" class="status-icon" />
+                            </div>
+                        </div> 
+                    </div>                    
+                </div> -->
+                <div id="allBetsSection" class="allbets">
                     <div class="table-header">
-                        <div class="header-cell user-cell">User</div>
-                        <div class="header-cell bet-cell">Bet x</div>
-                        <div class="header-cell cashout-cell">Cashout</div>
+                        <div class="header-cell user-cell">Bet</div>
+                        <div class="header-cell bet-cell">Cashout</div>
+                        <div class="header-cell cashout-cell">Win</div>
                     </div>
                     <div id="bet-history-container">
-                          Dynamic bet rows will appear here
+                          <!-- Dynamic bet rows will appear here -->
                      </div>
-                    <div class="bet-row normal">
-                        <div class="user-profile">
-                            <div class="profile-pic-container">
-                                <img src="assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
-                            </div>
-                            <span class="user-name">Navn..</span>
-                        </div>
+                    <!-- <div class="bet-row normal">
+                       
                         <div class="bet-amount">8000</div>
-                        <div class="multiplier-badge">6.94x</div>
+                        <div class="multiplier-badge">8000 6.94x</div>
                         <div class="cashout-amount">12000</div>
                     </div>
 
@@ -221,9 +213,9 @@
                         <div class="bet-amount">8000</div>
                         <div class="multiplier-badge">6.94x</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row gradient">
+                    <!-- <div class="bet-row gradient">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
@@ -232,9 +224,9 @@
                         </div>
                         <div class="bet-amount">8000</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row gradient">
+                    <!-- <div class="bet-row gradient">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_37.png" alt="Profile" class="profile-pic">
@@ -243,9 +235,9 @@
                         </div>
                         <div class="bet-amount">8000</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row gradient">
+                    <!-- <div class="bet-row gradient">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
@@ -255,9 +247,9 @@
                         <div class="bet-amount">8000</div>
                         <div class="multiplier-badge">6.94x</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row normal">
+                    <!-- <div class="bet-row normal">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
@@ -266,9 +258,9 @@
                         </div>
                         <div class="bet-amount">8000</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row normal">
+                    <!-- <div class="bet-row normal">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_37.png" alt="Profile" class="profile-pic">
@@ -277,9 +269,9 @@
                         </div>
                         <div class="bet-amount">8000</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row gradient">
+                    <!-- <div class="bet-row gradient">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
@@ -289,9 +281,9 @@
                         <div class="bet-amount">8000</div>
                         <div class="multiplier-badge">6.94x</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row normal">
+                    <!-- <div class="bet-row normal">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
@@ -300,9 +292,9 @@
                         </div>
                         <div class="bet-amount">8000</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row normal">
+                    <!-- <div class="bet-row normal">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_37.png" alt="Profile" class="profile-pic">
@@ -311,9 +303,9 @@
                         </div>
                         <div class="bet-amount">8000</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row gradient">
+                    <!-- <div class="bet-row gradient">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_72.png" alt="Profile" class="profile-pic">
@@ -323,9 +315,9 @@
                         <div class="bet-amount">8000</div>
                         <div class="multiplier-badge">6.94x</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
+                    </div> -->
 
-                    <div class="bet-row gradient">
+                    <!-- <div class="bet-row gradient">
                         <div class="user-profile">
                             <div class="profile-pic-container">
                                 <img src="assets/images/img_ellipse_36.png" alt="Profile" class="profile-pic">
@@ -334,8 +326,8 @@
                         </div>
                         <div class="bet-amount">8000</div>
                         <div class="cashout-amount">12000</div>
-                    </div>
-                </div> -->
+                    </div> -->
+                </div>
             </div>
 
             <div class="game-container" id="gamecid">
@@ -361,12 +353,22 @@
     <span>0.00x</span>
   </div>
 </div>
+<div id="pause-loader" class="pause-loader" style="display: none;">
+  <div class="pause-content">
+    <img src="assets/images/FlyHigh.svg" alt="FlyHigh" class="pause-logo" />
+    <div class="pause-progress-bar">
+      <div class="pause-progress"></div>
+    </div>
+  </div>
+</div>
+
+
   <div class="animation-container" id="planeAnimation">
                 <div class="flight-group">
  
   <!-- <img src="assets/images/curve.png"class="trajectory" id="trajectory" /> -->
  
-  <img src="assets/images/rocket.png" class="airplane" id="airplane" style="display:none" />
+  <img src="assets/images/fly.png" class="airplane" id="airplane" style="display:none" />
 <!-- <img src="airplane.png" id="airplane" class="airplane" style="display:none" /> -->
 <svg id="flight-path" width="0" height="0">
   <path id="trajectory-path"
@@ -408,7 +410,7 @@
     <div class="preset-button" data-index="0">1000.00</div>
   </div>
 
-<div class="action-button" id="bet-button-0" onclick="handleBetClick(0)">
+<div class="action-button" id="bet-button-0">
   <span class="bet-status" id="bet-status-0">Bet</span>
   <span class="cashout-multiplier" id="cashout-multiplier-0" style="display: none;"></span>
 </div>
@@ -451,7 +453,7 @@
     <div class="preset-button" data-index="1">1000.00</div>
   </div>
 
-<div class="action-button" id="bet-button-1" onclick="handleBetClick(1)">
+<div class="action-button" id="bet-button-1">
   <span class="bet-status" id="bet-status-1">Bet</span>
   <span class="cashout-multiplier" id="cashout-multiplier-1" style="display: none;"></span>
 </div>
@@ -470,7 +472,7 @@
                             <!-- <img src="assets/images/img_group_22x28.svg" alt="icon" class="popup-icon"> -->
                             Free bets Management
                         </div>
-                        <!-- <button class="close-btn" onclick="closeFreeBetsPopup()">✖</button> -->
+                        <button class="close-btn" onclick="closeFreeBetsPopup()">✖</button>
                     </div>
 
                     <div class="popup-body">
@@ -572,7 +574,7 @@
                         <h2>How to Play</h2>
                         <div class="buttons">
                             <button class="button" id="gameRulesModalbtn">Game Rules</button>
-                            <button class="close-btnmodal" id="closeModal">&times;</button>
+                            <button class="close-btn" id="closeModal">&times;</button>
                         </div>
                     </div>
 
@@ -604,7 +606,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>Game Rules</h2>
-                        <button class="close-btngame">×</button>
+                        <button class="close-btn">×</button>
                     </div>
 
                     <p class="para">

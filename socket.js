@@ -20,43 +20,58 @@ socket.addEventListener("open", () => {
   }));
 });
 
-function updateBetUI(index, betAmount, multiplier, winAmount, cashOutValue = null) {
-  const betEl = document.querySelector(`#bet-inr-${index} strong`);
-  const multEl = document.querySelector(`#multiplier-${index} .multiplier`);
-  const winEl = document.querySelector(`#win-inr-${index} strong`);
+// function updateBetUI(index, betAmount, multiplier, winAmount, cashOutValue = null) {
+//   const betEl = document.querySelector(`#bet-inr-${index} strong`);
+//   const multEl = document.querySelector(`#multiplier-${index} .multiplier`);
+//   const winEl = document.querySelector(`#win-inr-${index} strong`);
 
-  if (betEl) betEl.innerText = `₹${betAmount.toFixed(2)}`;
-  if (multEl) {
-    const cashText = cashOutValue !== null ? `${(cashOutValue / 100).toFixed(2)} ` : '';
-    multEl.innerText = `${cashText}${multiplier.toFixed(2)}x`;
-  }
-  if (winEl) winEl.innerText = `${winAmount.toFixed(2)}`;
-}
+//   if (betEl) betEl.innerText = `₹${betAmount.toFixed(2)}`;
+//   if (multEl) {
+//     const cashText = cashOutValue !== null ? `${(cashOutValue / 100).toFixed(2)} ` : '';
+//     multEl.innerText = `${cashText}${multiplier.toFixed(2)}x`;
+//   }
+//   if (winEl) winEl.innerText = `${winAmount.toFixed(2)}`;
+// }
 
-function addTopWinCard(userId, bet, multiplier, win, cashOutValue = null, avatarUrl = '') {
-  const container = document.getElementById("topSection");
-  const card = document.createElement("div");
-  card.className = "card";
+// function addTopWinCard(userId, bet, multiplier, win, cashOutValue = null, avatarUrl = '') {
+//   const container = document.getElementById("topSection");
+//   const card = document.createElement("div");
+//   card.className = "card";
 
-  const cashOutText = cashOutValue !== null
-    ? `<strong>${(cashOutValue / 100).toFixed(2)}</strong> `
-    : '';
+//   const cashOutText = cashOutValue !== null
+//     ? `<strong>${(cashOutValue / 100).toFixed(2)}</strong> `
+//     : '';
 
-  card.innerHTML = `
-    <div class="user-infotop">
-      <img src="${avatarUrl || 'assets/images/img_ellipse_72.png'}" class="user-img" />
-      <div>
-        <div class="bet-info">
-          <div>Bet INR : <strong>₹${bet.toFixed(2)}</strong></div>
-          <div>Cash out : <span class="multiplier">${cashOutText}${multiplier.toFixed(2)}x</span></div>
-          <div>Win INR : <strong>₹${win.toFixed(2)}</strong></div>
-        </div>
-      </div>
-    </div>
+//   card.innerHTML = `
+//     <div class="user-infotop">
+//       <img src="${avatarUrl || 'assets/images/img_ellipse_72.png'}" class="user-img" />
+//       <div>
+//         <div class="bet-info">
+//           <div>Bet INR : <strong>₹${bet.toFixed(2)}</strong></div>
+//           <div>Cash out : <span class="multiplier">${cashOutText}${multiplier.toFixed(2)}x</span></div>
+//           <div>Win INR : <strong>₹${win.toFixed(2)}</strong></div>
+//         </div>
+//       </div>
+//     </div>
+//   `;
+
+//   container.prepend(card);
+// }
+function addBetHistoryRow({ bet, cashout, multiplier, win }) {
+  const container = document.getElementById("bet-history-container");
+  const row = document.createElement("div");
+  row.className = "bet-row gradient";
+
+  row.innerHTML = `
+    <div class="bet-amount">${bet}</div>
+    <div class="cashout-amount">${cashout}</div><div class="multiplier-badge"> ${multiplier.toFixed(2)}x</div>
+    <div class="win-amount">${win}</div>
   `;
 
-  container.prepend(card);
+  container.prepend(row);
 }
+
+
 
 socket.addEventListener("message", (event) => {
   console.log("📨 Raw message:", event.data);
@@ -130,8 +145,8 @@ socket.addEventListener("message", (event) => {
       btn.className = "action-button bet";
       btn.disabled = false;
       if (multDisplay) multDisplay.style.display = "none";
-      updateBetUI(i, 0, 0, 0);
-      if (data.wallet?.balance !== undefined) updateBalanceDisplay(data.wallet.balance);
+       if (data.wallet?.balance !== undefined) updateBalanceDisplay(data.wallet.balance);
+      // updateBetUI(i, 0, 0, 0);
       return;
     }
 
@@ -157,13 +172,26 @@ socket.addEventListener("message", (event) => {
       console.log(`🏆 Player ${i} WON ₹${winAmount.toFixed(2)} at ${mult.toFixed(2)}x multiplier`);
       const cashOutValue = data.on?.cash_out ?? null;
 
-      status.innerText = `🎉 Won ₹${winAmount.toFixed(2)} at ${mult.toFixed(2)}x`;
-      btn.className = "action-button cashed";
+      status.innerText = `Cash out`;
+       const multDisplay = document.getElementById(`cashout-multiplier-${i}`);
+  if (multDisplay) {
+    multDisplay.innerText = `${mult.toFixed(2)}x`;
+    multDisplay.style.display = "block";
+  }
+      btn.className = "action-button cashout";
       btn.disabled = true;
-      if (multDisplay) multDisplay.style.display = "none";
+      if (data.wallet?.balance !== undefined) {
+  updateBalanceDisplay(data.wallet.balance);
+}
 
-      updateBetUI(i, betAmount, mult, winAmount, cashOutValue);
-      addTopWinCard(`User-${i}`, betAmount, mult, winAmount, cashOutValue);
+      // updateBetUI(i, betAmount, mult, winAmount, cashOutValue);
+      // addTopWinCard(`User-${i}`, betAmount, mult, winAmount, cashOutValue);
+addBetHistoryRow({
+  bet: Math.round(betAmount * 100),
+  cashout: cashOutValue,
+  multiplier: mult,
+  win: Math.round(winAmount * 100)
+});
 
       const cashoutSound = document.getElementById("cashoutSound");
       if (cashoutSound && isSoundEnabled()) {
@@ -175,27 +203,36 @@ socket.addEventListener("message", (event) => {
     }
   }
 
-  if (data.status === "progress" && data.k) {
-    currentMultiplier = data.k;
-    if (typeof data.h === "number") {
-      [0, 1].forEach(i => {
-        if (activeBets[i]) cashOutValues[i] = data.h;
-      });
-    }
-   [0, 1].forEach(i => {
-  const el = document.getElementById(`cashout-multiplier-${i}`);
-  if (activeBets[i] && el) {
-    el.style.display = "inline-block";
-    el.innerText = `${currentMultiplier.toFixed(2)}x`;
+ if (data.status === "progress" && data.k) {
+  currentMultiplier = data.k;
+  if (typeof data.h === "number") {
+    [0, 1].forEach(i => {
+      if (activeBets[i]) cashOutValues[i] = data.h;
+    });
+  }
 
+  [0, 1].forEach(i => {
+    const el = document.getElementById(`cashout-multiplier-${i}`);
     const btn = document.getElementById(`bet-button-${i}`);
-    if (btn && !btn.classList.contains("cashout") && !btn.classList.contains("cashed")) {
-      btn.className = "action-button cancel cashout";
-    }
-  }
-});
+    const status = document.getElementById(`bet-status-${i}`);
 
-  }
+    if (activeBets[i]) {
+      if (el) {
+        el.style.display = "inline-block";
+        el.innerText = `${currentMultiplier.toFixed(2)}x`;
+      }
+
+      if (btn) {
+        btn.className = "action-button cashout"; // ✅ Apply correct styling
+      }
+
+      if (status) {
+        status.innerText = "Cash out"; // ✅ Update text from Cancel to Cashout
+      }
+    }
+  });
+}
+
 
   if (data.status) {
     gameState = data.status;
@@ -207,8 +244,20 @@ socket.addEventListener("message", (event) => {
         console.log("⏸️ Game Paused – Accepting bets");
         animationStarted = false;
         crashSoundPlayed = false;
+        
+   const loader = document.getElementById("pause-loader");
+  const progress = document.querySelector(".pause-progress");
+
+  loader.style.display = "flex";
+
+  if (progress) {
+    // Remove and restart animation
+    progress.style.animation = "none";
+    void progress.offsetWidth; // trigger DOM reflow
+    progress.style.animation = "shrinkProgress 2s linear forwards"; // ⏱ Adjust time if needed
+  }
         [0, 1].forEach(i => {
-          updateBetUI(i, 0, 0, 0);
+          // updateBetUI(i, 0, 0, 0);
           wonProcessed[i] = false;
         });
         setTimeout(() => hideKoefficientDisplay(), 50);
@@ -216,6 +265,8 @@ socket.addEventListener("message", (event) => {
 
       case "started":
         console.log("✅ Game Started – No more bets");
+        document.getElementById("pause-loader").style.display = "none";
+
         [0, 1].forEach(i => {
           const btn = document.getElementById(`bet-button-${i}`);
           if (pendingCancel[i]) btn.disabled = true;
@@ -223,6 +274,8 @@ socket.addEventListener("message", (event) => {
 
       case "progress":
         console.log("✈️ Plane flying – Multiplier:", data.k);
+        document.getElementById("pause-loader").style.display = "none";
+
         if (!animationStarted) {
           animationStarted = true;
           startPlaneAnimation(data.k ? 5 + data.k * 0.2 : 8);
@@ -230,35 +283,56 @@ socket.addEventListener("message", (event) => {
         updateKoefficientDisplay(data.k);
         break;
 
-      case "crash":
-        console.log("💥 Plane crashed at", data.k);
-        stopPlaneAnimation();
-        const planeSound = document.getElementById("planeSound");
-        if (planeSound) {
-          planeSound.pause();
-          planeSound.currentTime = 0;
-        }
-        const crashSound = document.getElementById("crashSound");
-        if (!crashSoundPlayed && crashSound && isSoundEnabled()) {
-          crashSoundPlayed = true;
-          crashSound.currentTime = 0;
-          crashSound.play().catch(err => console.warn("Crash sound error:", err));
-        }
-        animationStarted = false;
-        hideKoefficientDisplay();
-        appendMultiplierToTabs(data.k);
-        setTimeout(() => showCashoutUI(), 50);
-        [0, 1].forEach(i => {
-          activeBets[i] = data.bet_sum > 0;
-          document.getElementById(`bet-status-${i}`).innerText = "Bet";
-          const btn = document.getElementById(`bet-button-${i}`);
-          btn.className = "action-button bet";
-          btn.disabled = false;
-          wonProcessed[i] = false;
-          const cashoutEl = document.getElementById(`cashout-multiplier-${i}`);
-          if (cashoutEl) cashoutEl.style.display = "none";
-        });
-        break;
+    case "crash":
+  console.log("💥 Plane crashed at", data.k);
+  stopPlaneAnimation();
+document.getElementById("pause-loader").style.display = "none";
+
+  const planeSound = document.getElementById("planeSound");
+  if (planeSound) {
+    planeSound.pause();
+    planeSound.currentTime = 0;
+  }
+
+  const crashSound = document.getElementById("crashSound");
+  if (!crashSoundPlayed && crashSound && isSoundEnabled()) {
+    crashSoundPlayed = true;
+    crashSound.currentTime = 0;
+    crashSound.play().catch(err => console.warn("Crash sound error:", err));
+  }
+
+  animationStarted = false;
+
+  // ✅ Show final crash multiplier using #current-multiplier
+  const multiplierEl = document.querySelector("#current-multiplier span");
+  const container = document.getElementById("current-multiplier");
+  if (multiplierEl && container) {
+    multiplierEl.innerText = `${data.k.toFixed(2)}x`;
+    container.style.display = "block";
+
+    // Hide after a short delay (optional)
+    setTimeout(() => {
+      multiplierEl.innerText = "0.00x";
+      container.style.display = "none";
+    }, 2000);
+  }
+
+  appendMultiplierToTabs(data.k);
+  setTimeout(() => showCashoutUI(), 50);
+
+  [0, 1].forEach(i => {
+    activeBets[i] = data.bet_sum > 0;
+    document.getElementById(`bet-status-${i}`).innerText = "Bet";
+    const btn = document.getElementById(`bet-button-${i}`);
+    btn.className = "action-button bet";
+    btn.disabled = false;
+    wonProcessed[i] = false;
+    const cashoutEl = document.getElementById(`cashout-multiplier-${i}`);
+    if (cashoutEl) cashoutEl.style.display = "none";
+  });
+
+  break;
+
     }
   }
 
@@ -299,7 +373,7 @@ function handleBetClick(index) {
     pendingCancel[index] = true;
     activeBets[index] = false;
     betBtn.disabled = true;
-    status.innerText = "Placing...";
+    status.innerText = "Bet";
     betBtn.className = "action-button bet";
     socket.send(JSON.stringify({ set: "options", index, bet_sum }));
     return;
@@ -315,17 +389,20 @@ function handleBetClick(index) {
     socket.send(JSON.stringify({ set: "bet", index, cash_out: cashOutValue }));
     activeBets[index] = false;
     pendingCancel[index] = false;
-    status.innerText = "Cashed Out";
-    betBtn.className = "action-button cashed";
+    status.innerText = "Cash out";
+    betBtn.className = "action-button cashout";
     betBtn.disabled = true;
   }
 }
 
 function updateBalanceDisplay(paise) {
-  const rupees = (paise / 100).toFixed(2);
-  const el = document.getElementById("wallet-balance");
-  if (el) el.innerText = `₹${rupees}`;
-  console.log("wallet:", paise);
+   const el = document.getElementById("wallet-balance");
+  if (el) el.innerText = paise.toString();
+  console.log("wallet (paise):", paise);
+  // const rupees = (paise / 100).toFixed(2);
+  // const el = document.getElementById("wallet-balance");
+  // if (el) el.innerText = `₹${rupees}`;
+  // console.log("wallet:", paise);
 }
 
 document.getElementById("bet-button-0").addEventListener("click", () => handleBetClick(0));

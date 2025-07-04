@@ -1,6 +1,6 @@
  body {
      font-family: Arial, sans-serif;
-     background: linear-gradient(to bottom, #0a0f2c, #1a1c3a);
+     background: #000;
      color: white;
      padding: 20px;
  }
@@ -73,7 +73,7 @@
      left: 0;
      width: 100%;
      height: 44px;
-     background: linear-gradient(90deg, #13152F 0%, #13152F 100%);
+     background: #000000;
      display: flex;
      justify-content: space-between;
      align-items: center;
@@ -122,7 +122,7 @@
      display: flex;
      align-items: center;
      background-color: #1E2240;
-     border-radius: 5px;
+     border-radius: 4px;
      padding: 6px 15px;
      gap: 5px;
  }
@@ -143,12 +143,13 @@
      margin-top: 60px;
      height: calc(100vh - 60px);
      flex-direction: row;
+     background-color: #000;
  }
 
  .bets-container {
      width: 300px;
      height: 100%;
-     background: linear-gradient(139deg, #13152F 0%, #13152F 100%);
+     background: #000000;
      border-radius: 8px;
      padding: 12px 9px;
      overflow-y: auto;
@@ -175,15 +176,15 @@
  }
 
  .tab.active {
-     background: linear-gradient(90deg, #2282E6 0%, #2282E6 100%);
+     background: linear-gradient(90deg, #00E5FF 0%, #00E5FF 100%);
      border-radius: 4px;
      color: #0F111A;
  }
 
  .table-header {
      display: flex;
-     background-color: #13152F;
-     border-radius: 17px;
+     background-color: #000;
+     border-radius: 0px;
      height: 35px;
      margin-bottom: 10px;
      padding: 0 16px;
@@ -193,7 +194,7 @@
      display: flex;
      align-items: center;
      justify-content: center;
-     color: #8a8b8b;
+     color: #FFFFFF;
      font-size: 10px;
      font-weight: 500;
  }
@@ -291,10 +292,17 @@
      font-size: 10px;
      font-weight: 400;
      color: #ffffff;
-     text-align: center;
+     text-align: left;
  }
 
- .cashout-amount {
+  .cashout-amount {
+     flex: 1;
+     font-size: 10px;
+     font-weight: 400;
+     color: #ffffff;
+     text-align: center;
+ }
+ .win-amount {
      flex: 1;
      font-size: 10px;
      font-weight: 400;
@@ -318,19 +326,22 @@
  .game-container {
      flex: 1;
      position: relative;
-     background-image: url('assets/images/background.png');
+     background-image: url('assets/images/fantasybackground.png');
      background-size: cover;
      background-position: center;
      overflow: hidden;
-     margin-top: -10px;
+     margin-top: -29px;
  }
  .multiplier-bar {
   display: flex;
   align-items: center;
-  background-color: #0e0e18;
+  background-color: #030609;
   padding: 16px;
   border-radius: 0px;
   overflow-x: auto;
+  margin-top: 10px;
+  margin-left: 14px;
+  margin-right: 12px;
   /*margin-top: -10px; move it up
   position: relative;
   z-index: 20; make sure it stays above background */
@@ -340,8 +351,8 @@
  
         .multiplier-tabs {
             position: absolute;
-            top: 5px;
-            left: 4px;
+            top: 14px;
+            left: 18px;
             right: 13px;
             display: flex;
             gap: 2px;
@@ -355,8 +366,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #131626;
-            border-radius: 0px;
+            color: #ffffff; /* common white text */
+            border-radius: 2px;
             width: 67px;
             height: 25px;
             font-size: 10px;
@@ -364,22 +375,51 @@
             white-space: nowrap;
         }
 
- .multiplier-tab.green {
-     color: #65FFBC;
- }
 
- .multiplier-tab.red {
-     color: #00d0ff;
- }
+/* === Specific Color Classes Based on Multiplier === */
 
- .multiplier-tab.light-green {
-     color: #BC65FF;
- }
+/* Multiplier < 2.00 (Red/Pink) */
+.multiplier-tab.red {
+  background-color: #5B1D60;
+  color: #FF79C6;
+}
 
- .multiplier-tab.medium-green {
-     color: #BC65FF;
- }
+/* 2.00–3.99 (Purple) */
+.multiplier-tab.purple {
+  background-color: #452C64;
+  color: #BC65FF;
+}
 
+/* 4.00–6.99 (Blue) */
+.multiplier-tab.blue {
+  background-color: #1E2B40;
+  color: #65B7FF;
+}
+
+/* 7.00–9.99 (Teal Green) */
+.multiplier-tab.green {
+  background-color: #11433C;
+  color: #65FFBC;
+}
+
+/* 10.00+ (Bright Green / Victory) */
+.multiplier-tab.dark-green {
+  background-color: #1C4938;
+  color: #65FFBC;
+}
+
+/* Optional: red dot for the most recent */
+.multiplier-tab.active::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .history-button {
   display: flex;
   align-items: center;
@@ -389,8 +429,8 @@
   gap: 5px;
 
   position: fixed;   /* Anchor to viewport */
-  top: 74px;         /* Distance from top */
-  right: 26px;       /* Distance from right */
+  top: 63px;         /* Distance from top */
+  right: 37px;       /* Distance from right */
   z-index: 1000;     /* Keep it on top */
 }
 
@@ -428,20 +468,20 @@
 
  .betting-panel {
      flex: 1;
-     background: linear-gradient(135deg, #13152F 0%, #13152F 100%);
+     background: #13152F;
      border-radius: 8px;
      padding: 11px 21px;
      position: relative;
-     bottom: 34px;
+     bottom: 84px;
  }
 
  .betting-panel-right {
      flex: 1;
-     background: linear-gradient(135deg, #13152F 0%, #13152F 100%);
+     background: #13152F;
      border-radius: 8px;
      padding: 11px 21px;
      position: relative;
-     bottom: 34px;
+     bottom: 84px;
  }
 
  .betting-panel .auto-cashout {
@@ -566,22 +606,6 @@
      cursor: pointer;
  }
 
- /* .action-button.red {
-  background: linear-gradient(180deg, #2282E6, #2282E6);  Blue 
-}
-
-.action-button.green {
-  background: linear-gradient(180deg, #2282E6, #2282E6);  Blue
-}
-
-.action-button.cashout {
-  background: linear-gradient(180deg, #FBA814, #FBA814);  Yellow 
-}
-
-.action-button.cashed {
-  background: linear-gradient(180deg, #FBA814, #FBA814);Yellow 
-} */
-
  .action-button span {
      font-size: 20px;
      font-weight: 600;
@@ -594,6 +618,12 @@
  .action-button.green span {
      color: #FFFFFF;
  }
+.bet-amount-display {
+  display: block;
+  font-size: 10px;
+  color: #ffffff;
+  margin-top: 2px;
+}
 
  .auto-cashout {
      position: absolute;
@@ -765,7 +795,7 @@
  body {
      margin: 0;
      font-family: Arial, sans-serif;
-     background-color: #111;
+     background-color: #000;
      color: white;
  }
 
@@ -1597,7 +1627,7 @@
 }
 
 .current-multiplier {
-  font-size: 40px;
+  font-size: 80px;
   font-weight: bold;
   color: #00d0ff;
   display: none; /* hidden by default */
@@ -1620,12 +1650,65 @@
 /* Cashout - Yellow */
 .action-button.cashout {
   background-color: #FBA814;
+   color: #000;
 }
 
 /* Cashed (Won) - Green */
 .action-button.cashed {
   background-color: #00C851;
 }
+.pause-loader {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* background: rgba(0, 0, 0, 0.4); */
+  padding: 20px 30px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.pause-logo {
+  width: 250px;
+  height: auto;
+}
+
+.pause-progress-bar {
+  width: 200px;
+  height: 6px;
+  background: #ffffff33;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pause-progress {
+  height: 100%;
+  width: 100%;
+  background: #65FFBC;
+  animation: shrinkProgress 2s linear forwards; /* Adjust duration to match your pause length */
+}
+
+@keyframes shrinkProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+
  /* Mobile view */
 
  @media (max-width: 768px) {
@@ -1634,7 +1717,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 29%;
+  height: 24%;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
@@ -1655,7 +1738,7 @@
 
 .airplane {
          position: absolute;
-        width: 122px;
+        width: 83px;
         height: auto;
         z-index: 2;
         top: 0px;
@@ -1730,7 +1813,7 @@
          gap: 4px;
 
          background-color: #1E2240;
-         border-radius: 0px;
+         border-radius: 4px;
          padding: 4px 12px;
 
          position: absolute;
@@ -1755,15 +1838,28 @@
          white-space: nowrap;
          line-height: 1;
      }
-     .bet-amount {
+     .current-multiplier {
+  font-size: 45px;
+  font-weight: bold;
+  color: #00d0ff;
+ margin-top: -41px;
+}
+      .bet-amount {
+     flex: 1;
+     font-size: 10px;
+     font-weight: 400;
+     color: #ffffff;
+     text-align: left;
+ }
+
+  .cashout-amount {
      flex: 1;
      font-size: 10px;
      font-weight: 400;
      color: #ffffff;
      text-align: center;
  }
-
- .cashout-amount {
+ .win-amount {
      flex: 1;
      font-size: 10px;
      font-weight: 400;
@@ -1772,7 +1868,7 @@
  }
 
  .multiplier-badge {
-     background-color: #00d0ff;
+     background-color: #00E5FF;
      border-radius: 6px;
      padding: 2px 1px;
      font-size: 12px;
@@ -1786,16 +1882,16 @@
 
      .main-container {
          flex-direction: column;
-         margin-top: 31px;
+         margin-top: 52px;
      }
 
      .bets-container {
          width: 100%;
          height: auto;
-         max-height: 192px;
+         max-height: 163px;
          border-radius: 0;
          order: 2;
-         margin-top: 7px;
+        transform: translateY(-58px);
      }
 
           .game-container {
@@ -1815,7 +1911,11 @@
      }
 .multiplier-bar {
   position: relative;
-  padding-right: 80px; /* Prevent multipliers from hiding behind History button */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  height: 30px;
 }
 
 .multiplier-tabs {
@@ -1823,9 +1923,10 @@
   overflow-x: auto;
   white-space: nowrap;
   gap: 4px;
-  padding: 0 8px;
   height: 30px;
   scrollbar-width: none;
+  top:1px;
+  padding-right: 90px; /* Give space for History button */
 }
 
 .multiplier-tabs::-webkit-scrollbar {
@@ -1840,35 +1941,36 @@
   align-items: center;
   background-color: #1E2240;
   border-radius: 4px;
-  padding: -12px 12px;
-  gap: 5px;
-  z-index: 10;
+  padding: 0 10px;
   height: 30px;
   font-size: 12px;
   font-weight: 600;
   color: white;
   cursor: pointer;
+  z-index: 2;
+  gap: 6px; /* controls spacing between img and span */
 }
+
 .history-button img {
-     width: 16px;
-     height: 16px;
-     margin-left: 52px;
+  width: 16px;
+  height: 16px;
+  margin: 0; /* remove huge margin */
+}
 
- }
+.history-button span {
+  font-size: 10px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0; /* remove huge margin */
+}
 
- .history-button span {
-     font-size: 10px;
-     font-weight: 500;
-     color: #ffffff;
-     margin-right: 103px;
- }
 
 
       .betting-controls {
          display: flex;
          flex-direction: column;
          gap: 5px;
-         padding:325px  1px 12px;
+         padding:308px  1px 12px;
          border-radius: 0 0 8px 8px;
          background: linear-gradient(180deg, #03060900 0%, #000000 100%);
          position: relative;
@@ -1877,9 +1979,9 @@
 
      .betting-panel,
      .betting-panel-right {
-         background-color: #0f0f1a;
+         background-color:#13152F;
          border-radius: 0px;
-         padding: 15px 14px;
+         padding: 27px 14px;
          display: flex;
          flex-direction: column;
          gap: 10px;
@@ -1973,7 +2075,7 @@
      .action-button {
          width: 123px;
          height: 110px;
-         bottom: 15px;
+         bottom: 36px;
          right: 15px;
          border-radius: 4px;
          gap: 3px;
@@ -1983,19 +2085,7 @@
          font-size: 16px;
      }
 
-     /* .action-button.red {
-         background: linear-gradient(180deg, #2282E6, #2282E6);
-     }
 
-     .action-button.green {
-         background: linear-gradient(180deg, #2282E6, #2282E6);
-     }
- .action-button.green .cashout  {
-         background: linear-gradient(180deg, #FBA814, #FBA814);
-     }
- .action-button.green .cashed{
-         background: linear-gradient(180deg, #FBA814, #FBA814);
-     } */
      .auto-cashout {
          display: flex;
          align-items: center;
@@ -2079,7 +2169,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 23%;
   overflow: hidden;
   pointer-events: none;
   z-index: 10;
@@ -2100,16 +2190,16 @@
 
 .airplane {
       position: absolute;
-    width: 150px;
+    width:80px;
     height: auto;
     z-index: 2;
-    top: -76px;
-    left: 348px;
+    top: 0;
+    left: 0;
     /* left: 0;
     top: 396px; */
     /* display: none; */
-}
 
+}
 .trajectory {
       position: absolute;
     width: 399px;
@@ -2120,7 +2210,7 @@
     .action-button {
         width: 85px;
         height: 93px;
-        bottom: 26px;
+        bottom: 42px;
         right: 12px;
         border-radius: 4px;
         gap: 3px;
@@ -2148,7 +2238,7 @@
          display: flex;
          flex-direction: column;
          gap: 5px;
-         padding:283px  0px 12px;
+         padding:281px  0px 12px;
          border-radius: 0 0 8px 8px;
          background: linear-gradient(180deg, #03060900 0%, #000000 100%);
          position: relative;
@@ -2157,9 +2247,9 @@
 
      .betting-panel,
      .betting-panel-right {
-         background-color: #0f0f1a;
+         background-color: #13152F;
          border-radius: 0px;
-         padding: 15px 14px;
+         padding: 18px 14px;
          display: flex;
          flex-direction: column;
          gap: 10px;
@@ -2174,15 +2264,28 @@
     margin-left: -19%;
     margin-top: 1%;
 }
- .bet-amount {
+ .current-multiplier {
+  font-size: 45px;
+  font-weight: bold;
+  color: #00d0ff;
+ margin-top: -41px;
+}
+  .bet-amount {
+     flex: 1;
+     font-size: 10px;
+     font-weight: 400;
+     color: #ffffff;
+     text-align: left;
+ }
+
+  .cashout-amount {
      flex: 1;
      font-size: 10px;
      font-weight: 400;
      color: #ffffff;
      text-align: center;
  }
-
- .cashout-amount {
+ .win-amount {
      flex: 1;
      font-size: 10px;
      font-weight: 400;
@@ -2191,7 +2294,7 @@
  }
 
  .multiplier-badge {
-     background-color: #fae05c;
+     background-color: #00E5FF;
      border-radius: 6px;
      padding: 2px 1px;
      font-size: 12px;
@@ -2216,7 +2319,7 @@
         justify-content: center;
         gap: 4px;
         background-color: #1E2240;
-        border-radius: 0px;
+        border-radius: 4px;
         padding: 4px 8px;
         position: absolute;
         right: 19px;
@@ -2225,17 +2328,73 @@
         height: 28px;
         z-index: 10;
     }
+     .multiplier-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    height: 30px;
+  }
+
+  .multiplier-tabs {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 4px;
+    height: 30px;
+    scrollbar-width: none;
+    top: 1px;
+    padding-right: 90px; /* reserve space for history button */
+  }
+
+  .multiplier-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .history-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background-color: #1E2240;
+    border-radius: 4px;
+    padding: 0 10px;
+    height: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+    gap: 6px;
+  }
+
+  .history-button img {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+  }
+
+  .history-button span {
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0;
+  }
+    
 }
 @media only screen and (device-width: 768px) and (device-height: 852px) {
-    .animation-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 10;
+  .animation-container {
+ position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 105%;
+        max-height: 352px;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 5;
 }
 
 .flight-group {
@@ -2256,8 +2415,8 @@
     width: 150px;
     height: auto;
     z-index: 2;
-    top: -76px;
-    left: 348px;
+    top: 0;
+    left: 0;
     /* left: 0;
     top: 396px; */
     /* display: none; */
@@ -2269,14 +2428,18 @@
     height: auto;
     z-index: 1;
 }
+.game-content {
+  position: relative;
+  padding-top: 46px; /* equal to animation-container max-height */
+}
 
   .betting-controls {
     position: relative; /* Change from absolute to relative */
     bottom: unset;
     top: unset;
-    margin-top: 348px; /* Push controls downward */
+    margin-top: 273px; /* Push controls downward */
     height: auto;
-    padding: 24px 6px 16px;
+    padding: 74px 6px 16px;
     border-radius: 12px;
     background: linear-gradient(180deg, rgba(3, 6, 9, 0.2) 0%, #000000 100%);
     display: flex;
@@ -2286,7 +2449,7 @@
   }
 .status-display {
   position: absolute;
-  top: -283px;
+  top: 79px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -2302,15 +2465,14 @@
 }
 
 .current-multiplier {
-  font-size: 30px;
+  font-size: 70px;
   font-weight: bold;
   color: #00d0ff;
-  display: none; /* hidden by default */
 }
   .betting-panel,
   .betting-panel-right {
     bottom: unset; /* Remove offset that was lifting the panel up */
-    padding: 14px 16px;
+    padding: 22px 16px;
     margin-top: -22px;
     border-radius: 10px;
     flex: 1;
@@ -2415,15 +2577,22 @@
          font-weight: 600;
          color: #00d0ff;
      }
-     .bet-amount {
+      .bet-amount {
+     flex: 1;
+     font-size: 10px;
+     font-weight: 400;
+     color: #ffffff;
+     text-align: left;
+ }
+
+  .cashout-amount {
      flex: 1;
      font-size: 10px;
      font-weight: 400;
      color: #ffffff;
      text-align: center;
  }
-
- .cashout-amount {
+ .win-amount {
      flex: 1;
      font-size: 10px;
      font-weight: 400;
@@ -2432,7 +2601,7 @@
  }
 
  .multiplier-badge {
-     background-color: #fae05c;
+     background-color: #00E5FF;
      border-radius: 6px;
      padding: 2px 1px;
      font-size: 12px;
