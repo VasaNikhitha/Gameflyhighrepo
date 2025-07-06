@@ -1696,7 +1696,7 @@
   height: 100%;
   width: 100%;
   background: #65FFBC;
-  animation: shrinkProgress 2s linear forwards; /* Adjust duration to match your pause length */
+  animation: shrinkProgress 5s linear forwards; /* Adjust duration to match your pause length */
 }
 
 @keyframes shrinkProgress {
@@ -2075,7 +2075,7 @@
      .action-button {
          width: 123px;
          height: 110px;
-         bottom: 36px;
+         bottom: 21px;
          right: 15px;
          border-radius: 4px;
          gap: 3px;
@@ -2158,10 +2158,61 @@
   }
 
   
- 
+ .pause-loader {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* background: rgba(0, 0, 0, 0.4); */
+  padding: 20px 30px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.pause-logo {
+  width: 100px;
+  height: auto;
+}
+
+.pause-progress-bar {
+  width: 100px;
+  height: 6px;
+  background: #ffffff33;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pause-progress {
+  height: 100%;
+  width: 100%;
+  background: #65FFBC;
+  animation: shrinkProgress 2s linear forwards; /* Adjust duration to match your pause length */
+}
+
+@keyframes shrinkProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
 
 
- }
+
+
+}
  @media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
   /* Styles for iPhone 12 Pro */
   .animation-container {
@@ -2210,7 +2261,7 @@
     .action-button {
         width: 85px;
         height: 93px;
-        bottom: 42px;
+        bottom: 21px;
         right: 12px;
         border-radius: 4px;
         gap: 3px;
@@ -2382,6 +2433,57 @@
     color: #ffffff;
     margin: 0;
   }
+  .pause-loader {
+  position: absolute;
+  top: 11%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* background: rgba(0, 0, 0, 0.4); */
+  padding: 20px 30px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.pause-logo {
+  width: 100px;
+  height: auto;
+}
+
+.pause-progress-bar {
+  width: 80px;
+  height: 6px;
+  background: #ffffff33;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pause-progress {
+  height: 100%;
+  width: 100%;
+  background: #65FFBC;
+  animation: shrinkProgress 2s linear forwards; /* Adjust duration to match your pause length */
+}
+
+@keyframes shrinkProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
     
 }
 @media only screen and (device-width: 768px) and (device-height: 852px) {
@@ -2612,4 +2714,55 @@
      /* Smaller flex value for less space */
      text-align: center;
  }
+ .pause-loader {
+  position: absolute;
+  top: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* background: rgba(0, 0, 0, 0.4); */
+  padding: 20px 30px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.pause-logo {
+  width: 200px;
+  height: auto;
+}
+
+.pause-progress-bar {
+  width: 150px;
+  height: 6px;
+  background: #ffffff33;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pause-progress {
+  height: 100%;
+  width: 100%;
+  background: #65FFBC;
+  animation: shrinkProgress 2s linear forwards; /* Adjust duration to match your pause length */
+}
+
+@keyframes shrinkProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
 }

@@ -153,9 +153,9 @@ socket.addEventListener("message", (event) => {
     if (data.bet?.awaiting === true) {
       console.log(`📩 Bet confirmed on panel ${i}`);
       activeBets[i] = true;
-      setTimeout(() => {
+      // setTimeout(() => {
         pendingCancel[i] = true;
-      }, 200);
+      // }, 200);
       status.innerText = "Cancel";
       btn.className = "action-button cancel";
       btn.disabled = false;
@@ -254,7 +254,7 @@ addBetHistoryRow({
     // Remove and restart animation
     progress.style.animation = "none";
     void progress.offsetWidth; // trigger DOM reflow
-    progress.style.animation = "shrinkProgress 2s linear forwards"; // ⏱ Adjust time if needed
+    progress.style.animation = "shrinkProgress 5s linear forwards"; // ⏱ Adjust time if needed
   }
         [0, 1].forEach(i => {
           // updateBetUI(i, 0, 0, 0);
