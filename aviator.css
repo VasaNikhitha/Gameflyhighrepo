@@ -1707,6 +1707,14 @@
     width: 0%;
   }
 }
+.bet-amount-ui {
+  font-size: 18px;
+  margin-top: 4px;
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+
 
 
  /* Mobile view */

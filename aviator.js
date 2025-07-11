@@ -18,38 +18,7 @@ betToggleButtons.forEach(button => {
     });
 });
 
-// Amount increment/decrement functionality
-const decrementButtons = document.querySelectorAll('.amount-button:first-child');
-const incrementButtons = document.querySelectorAll('.amount-button:last-child');
-const amountDisplays = document.querySelectorAll('.amount-display');
 
-decrementButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-        let currentAmount = parseFloat(amountDisplays[index].textContent);
-        if (currentAmount > 1) {
-            currentAmount -= 1;
-            amountDisplays[index].textContent = currentAmount.toFixed(2);
-        }
-    });
-});
-
-incrementButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-        let currentAmount = parseFloat(amountDisplays[index].textContent);
-        currentAmount += 1;
-        amountDisplays[index].textContent = currentAmount.toFixed(2);
-    });
-});
-
-// Preset amount buttons functionality
-const presetButtons = document.querySelectorAll('.preset-button');
-presetButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const panel = button.closest('.betting-panel, .betting-panel-right');
-        const amountDisplay = panel.querySelector('.amount-display');
-        amountDisplay.textContent = button.textContent;
-    });
-});
 
 // Auto cashout checkbox functionality
 document.addEventListener("DOMContentLoaded", function () {
@@ -530,36 +499,6 @@ function appendMultiplierToTabs(k) {
   const tabs = tabsContainer.querySelectorAll(".multiplier-tab:not(.history-button)");
   if (tabs.length > 10) tabs[0].remove();
 }
-
-
-
-
-window.addEventListener("DOMContentLoaded", () => {
-  // Amount +/- logic
-  document.querySelectorAll(".amount-button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const index = parseInt(btn.getAttribute("data-index"));
-      const display = document.getElementById(`amount-display-${index}`);
-      let current = parseFloat(display.innerText) * 100 || 0;
-      const step = 100; // 1.00 in paise
-
-      if (btn.innerText === "+") current += step;
-      if (btn.innerText === "-" && current >= step) current -= step;
-
-      display.innerText = (current / 100).toFixed(2);
-    });
-  });
-
-  // Preset click
-  document.querySelectorAll(".preset-button").forEach(preset => {
-    preset.addEventListener("click", () => {
-      const index = parseInt(preset.getAttribute("data-index"));
-      const value = parseFloat(preset.innerText);
-      document.getElementById(`amount-display-${index}`).innerText = value.toFixed(2);
-    });
-  });
-});
-
 
 function showCashoutUI(index, multiplier, cashoutAmount) {
   const el = document.getElementById(`cashout-display-${index}`);

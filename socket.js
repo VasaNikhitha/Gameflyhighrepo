@@ -19,6 +19,19 @@ socket.addEventListener("open", () => {
     key: "ba614aC3"
   }));
 });
+function setAmount(index, value) {
+  const display = document.getElementById(`amount-display-${index}`);
+  const btnAmount = document.getElementById(`bet-amount-${index}`);
+
+  if (display) display.innerText = value.toFixed(2);
+  if (btnAmount) btnAmount.innerText = value.toFixed(2);
+
+  betSums[index] = Math.round(value * 100);
+
+  console.log(`✅ [setAmount] index ${index} = ₹${value.toFixed(2)} (${betSums[index]} paise)`);
+}
+
+
 
 // function updateBetUI(index, betAmount, multiplier, winAmount, cashOutValue = null) {
 //   const betEl = document.querySelector(`#bet-inr-${index} strong`);
@@ -107,29 +120,34 @@ socket.addEventListener("message", (event) => {
     return;
   }
 
-  if (data.on?.get === "options") {
-    const i = data.on.index;
-    const opt = data.options;
-    if (!opt || typeof opt.bet_sum !== "number") return;
-    activeBets[i] = opt.bet_sum;
+if (data.on?.get === "options") {
+  const i = data.on.index;
+  const opt = data.options;
+  if (!opt || typeof opt.bet_sum !== "number") return;
 
-    if (opt.bets?.length) {
-      const container = document.getElementById(`preset-buttons-${i}`);
-      if (container) {
-        container.innerHTML = "";
-        opt.bets.forEach(val => {
-          const btn = document.createElement("div");
-          btn.className = "preset-button";
-          btn.innerText = val.toFixed(2);
-          btn.addEventListener("click", () => {
-            document.getElementById(`amount-display-${i}`).innerText = val.toFixed(2);
-          });
-          container.appendChild(btn);
+  // ✅ Set betSums and update UI using the server default
+  betSums[i] = opt.bet_sum;
+  setAmount(i, opt.bet_sum / 100); // display in ₹.xx format
+
+  if (opt.bets?.length) {
+    const container = document.getElementById(`preset-buttons-${i}`);
+    if (container) {
+      container.innerHTML = "";
+      opt.bets.forEach(val => {
+        const btn = document.createElement("div");
+        btn.className = "preset-button";
+        btn.innerText = val.toFixed(2);
+        btn.addEventListener("click", () => {
+          setAmount(i, val);
         });
-      }
+        container.appendChild(btn);
+      });
     }
-    return;
   }
+
+  return;
+}
+
 
   if (data.on?.set === "bet") {
     const i = data.on.index;
@@ -144,6 +162,10 @@ socket.addEventListener("message", (event) => {
       status.innerText = "Bet";
       btn.className = "action-button bet";
       btn.disabled = false;
+       
+  // ❌ Hide amount in Cancel state
+  const amtDisplay = document.getElementById(`bet-amount-${i}`);
+  if (amtDisplay) amtDisplay.style.display = "block";
       if (multDisplay) multDisplay.style.display = "none";
        if (data.wallet?.balance !== undefined) updateBalanceDisplay(data.wallet.balance);
       // updateBetUI(i, 0, 0, 0);
@@ -159,6 +181,12 @@ socket.addEventListener("message", (event) => {
       status.innerText = "Cancel";
       btn.className = "action-button cancel";
       btn.disabled = false;
+      
+  // ❌ Hide amount in Cancel state
+  const amtDisplay = document.getElementById(`bet-amount-${i}`);
+  if (amtDisplay) amtDisplay.style.display = "none";
+
+  if (amtDisplay) amtDisplay.style.display = "none";
       return;
     }
 
@@ -180,6 +208,10 @@ socket.addEventListener("message", (event) => {
   }
       btn.className = "action-button cashout";
       btn.disabled = true;
+      
+  // ❌ Hide amount in Cancel state
+  const amtDisplay = document.getElementById(`bet-amount-${i}`);
+  if (amtDisplay) amtDisplay.style.display = "none";
       if (data.wallet?.balance !== undefined) {
   updateBalanceDisplay(data.wallet.balance);
 }
@@ -230,6 +262,17 @@ addBetHistoryRow({
         status.innerText = "Cash out"; // ✅ Update text from Cancel to Cashout
       }
     }
+    
+  // ❌ Hide amount in Cancel state
+const amtDisplay = document.getElementById(`bet-amount-${i}`);
+const multDisplay = document.getElementById(`cashout-multiplier-${i}`);
+
+// ✅ Show amount only if bet is NOT active and cashout UI is hidden
+if (amtDisplay) {
+  const shouldShowAmount = !activeBets[i] && (!multDisplay || multDisplay.style.display === "none");
+  amtDisplay.style.display = shouldShowAmount ? "block" : "none";
+}
+
   });
 }
 
@@ -311,6 +354,7 @@ document.getElementById("pause-loader").style.display = "none";
     container.style.display = "block";
 
     // Hide after a short delay (optional)
+
     setTimeout(() => {
       multiplierEl.innerText = "0.00x";
       container.style.display = "none";
@@ -329,6 +373,8 @@ document.getElementById("pause-loader").style.display = "none";
     wonProcessed[i] = false;
     const cashoutEl = document.getElementById(`cashout-multiplier-${i}`);
     if (cashoutEl) cashoutEl.style.display = "none";
+      const amtDisplay = document.getElementById(`bet-amount-${i}`);
+  if (amtDisplay) amtDisplay.style.display = "block"; // ✅ Show amount again
   });
 
   break;
@@ -351,7 +397,7 @@ function handleBetClick(index) {
     alert("Please enter a valid bet amount.");
     return;
   }
-
+ setAmount(index, amount);
   const bet_sum = Math.round(amount * 100);
 
   if (gameState === "pause" && pendingCancel[index]) {
@@ -376,6 +422,9 @@ function handleBetClick(index) {
     status.innerText = "Bet";
     betBtn.className = "action-button bet";
     socket.send(JSON.stringify({ set: "options", index, bet_sum }));
+    const amtDisplay = document.getElementById(`bet-amount-${index}`);
+if (amtDisplay) amtDisplay.style.display = "block"; // ✅ Show amount again
+
     return;
   }
 
@@ -394,6 +443,30 @@ function handleBetClick(index) {
     betBtn.disabled = true;
   }
 }
+// Set default display value on load
+window.addEventListener("DOMContentLoaded", () => {
+  [0, 1].forEach(index => {
+    const amount = parseFloat(document.getElementById(`amount-display-${index}`).innerText);
+    setAmount(index, amount);
+  });
+});
+document.querySelectorAll(".amount-button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const index = btn.getAttribute("data-index");
+    const display = document.getElementById(`amount-display-${index}`);
+    let current = parseFloat(display.innerText) || 0;
+
+    if (btn.innerText.trim() === "+") {
+      current += 1;
+    } else {
+      current = Math.max(1, current - 1);
+    }
+
+    setAmount(index, current); // ✅ Updates display and button text
+  });
+});
+
+
 
 function updateBalanceDisplay(paise) {
    const el = document.getElementById("wallet-balance");
