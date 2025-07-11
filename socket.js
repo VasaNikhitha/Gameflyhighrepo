@@ -128,7 +128,15 @@ if (data.on?.get === "options") {
   // ✅ Set betSums and update UI using the server default
   betSums[i] = opt.bet_sum;
   setAmount(i, opt.bet_sum / 100); // display in ₹.xx format
-
+// Default values if server returns 0
+if (opt.bet_sum === 0) {
+  const defaultValues = { 0: 2.00, 1: 20.00 };
+  betSums[i] = Math.round(defaultValues[i] * 100);
+  setAmount(i, defaultValues[i]);
+} else {
+  betSums[i] = opt.bet_sum;
+  setAmount(i, opt.bet_sum / 100);
+}
   if (opt.bets?.length) {
     const container = document.getElementById(`preset-buttons-${i}`);
     if (container) {
